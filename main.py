@@ -1,9 +1,11 @@
 from helpers import parse_input
 from cli_interface import CLIInterface
+from address_book import AddressBook
 
 def main():
     cli = CLIInterface()
     cli.welcome()
+    book = AddressBook()
 
     while True:
         try: 
@@ -16,6 +18,9 @@ def main():
             if command in ["close", "exit", "bye"]:
                 cli.bye()
                 break
+            
+            if command == "add":
+                cli.add(args)
 
         except KeyboardInterrupt:
             cli.bye()
