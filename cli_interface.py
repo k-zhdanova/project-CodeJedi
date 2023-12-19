@@ -17,16 +17,16 @@ class CLIInterface:
     def bye(self):
         print("\nGood bye!")
 
-    def add_contact(self, book):
-        self.name = input("Input name: ")
-        if self.name:
-            self.phone = input("Input phone: ")
+    def add_contact(book):
+        name = input("Input name: ")
+        if name:
+            phone = input("Input phone: ")
         else:
             raise ValueError ("Name is required. Input name to add a contact")
         
-        self.address = input("Input address: ")
-        self.email = input("Input email: ")
-        self.birthday = input("Input birthday: ")  
-        record = Record(self.name, self.phone, self.address, self.email, self.birthday)
+        address = input("Input address: ")
+        email = input("Input email: ")
+        birthday = input("Input birthday: ")  
+        record = Record(name, phone, address, email, birthday)
         print(book.add_record(record))
         
