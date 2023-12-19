@@ -22,8 +22,7 @@ class CLIInterface:
         if self.name:
             self.phone = input("Input phone: ")
         else:
-            print("Name is required. Input name to add a contact")
-            return
+            raise ValueError ("Name is required. Input name to add a contact")
         
         self.address = input("Input address: ")
         self.email = input("Input email: ")
@@ -31,5 +30,3 @@ class CLIInterface:
         record = Record(self.name, self.phone, self.address, self.email, self.birthday)
         print(book.add_record(record))
         
-
-
