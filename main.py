@@ -1,41 +1,24 @@
-from collections import UserDict
 from helpers import parse_input
-
-class Field:
-    pass
-
-class Name(Field):
-    pass
-
-class Phone(Field):
-    pass
-
-class Birthday(Field):
-    pass
-
-class Notes(Field):
-    pass
-
-class Record:
-   pass
-
-class AddressBook(UserDict):
-    pass
+from cli_interface import CLIInterface
 
 def main():
-    print("Welcome to the assistant bot!")
+    cli = CLIInterface()
+    cli.welcome()
 
     while True:
         try: 
             user_input = input("Enter a command: ")
             command, *args = parse_input(user_input)
 
+            if command == "help":
+                cli.help()
+
             if command in ["close", "exit", "bye"]:
-                print("\nGood bye!")
+                cli.bye()
                 break
 
         except KeyboardInterrupt:
-            print("\nGood bye!")
+            cli.bye()
             return
 
 
