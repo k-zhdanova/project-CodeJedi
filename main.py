@@ -20,7 +20,7 @@ def main():
                 break
             
             if command == "add":
-                cli.add(args)
+                cli.add_contact(book)
 
         except KeyboardInterrupt:
             cli.bye()

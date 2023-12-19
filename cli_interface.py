@@ -1,10 +1,10 @@
 from constants import AVAILABLE_COMMANDS
+from fields import Phone
 from record import Record
+from address_book import AddressBook
 
 class CLIInterface:
-    def __init__(self):
-        pass
-
+    
     def welcome(self):
         print("Welcome to the assistant bot!")
 
@@ -17,18 +17,19 @@ class CLIInterface:
     def bye(self):
         print("\nGood bye!")
 
-    def add(self, args):
-        name, phone = args
-        record = Record(name, phone)
+    def add_contact(self, book):
+        self.name = input("Input name: ")
+        if self.name:
+            self.phone = input("Input phone: ")
+        else:
+            print("Name is required. Input name to add a contact")
+            return
+        
+        self.address = input("Input address: ")
+        self.email = input("Input email: ")
+        self.birthday = input("Input birthday: ")  
+        record = Record(self.name, self.phone, self.address, self.email, self.birthday)
         print(book.add_record(record))
-
-        '''
-ask name
-save
-ask 
-if enter - no error/ not add
-name+phone - required --> validation?
+        
 
 
-
-        '''
