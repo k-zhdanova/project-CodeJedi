@@ -1,9 +1,12 @@
+import datetime
+
 from record import Record
 from collections import UserDict
 from rich.table import Table
 from rich.console import Console
 
 from collections import UserDict
+
 
 class AddressBook(UserDict):
     def __init__(self):
@@ -13,7 +16,7 @@ class AddressBook(UserDict):
     def add_record(self, record: Record):
         self.data[record.name.value] = record
         return f"{record.name.value} added to address book"
-    
+
     def search(self, field, value):
         result = None
         if field == "name":
@@ -30,12 +33,13 @@ class AddressBook(UserDict):
             result = self.search_by_note(value)
         else:
             raise ValueError("🚨 Invalid field. Please try again.")
-        
+
         if not result:
             self.console.print(f"🔍 No records found for {field} = {value}.")
             return ""
-        
-        self.console.print(f"🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}", style="bold cyan")
+
+        self.console.print(f"🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}",
+                           style="bold cyan")
 
         self.print_records(result)
 
@@ -56,8 +60,8 @@ class AddressBook(UserDict):
 
     def search_by_note(self, note):
         return [record for record in self.data.values() if note.lower() in record.note.value.lower()]
-        
-    def print_records(self, records = None):
+
+    def print_records(self, records=None):
         if not records:
             records = self.data.values()
 
@@ -79,6 +83,15 @@ class AddressBook(UserDict):
             table.add_row(record.name.value, phones, email, birthday, address, note)
 
         self.console.print(table)
-    
+
     def __str__(self):
         return self.print_records(self)
+
+    def get_birthdays_per_week(self):
+        current_date = datetime.datetime.now().date()
+        one_week_later = current_date + datetime.timedelta(days=7)
+        birthdays_this_week = []
+        for name_value, record_inf in self.data.items():
+            if record_inf.birthday and current_date <= record_inf.birthday.value < one_week_later:
+                birthdays_this_week.append(name_value)
+        return birthdays_this_week
