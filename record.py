@@ -10,9 +10,6 @@ class Record:
         self.address = address
         self.email = email
         self.birthday = birthday
-
-
-   
    
    def __getname__(self):
         return self.name

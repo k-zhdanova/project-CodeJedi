@@ -20,11 +20,22 @@ def main():
                 break
             
             if command == "add":
-                cli.add_contact(book)
+                result = cli.add_contact(book)
+                print(result)
+
+            if command == "all":
+                result = cli.all(book)
+                print(result)
 
         except KeyboardInterrupt:
             cli.bye()
             return
+        except ValueError as error:
+            print(error)
+            continue
+        except Exception as error:
+            print(f"Error: {error}")
+            continue
 
 
 if __name__ == "__main__":
