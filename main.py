@@ -3,6 +3,7 @@ from cli_interface import CLIInterface
 from address_book import AddressBook
 from rich.console import Console
 
+
 def main():
     console = Console()
     book = AddressBook()
@@ -11,29 +12,38 @@ def main():
     cli.welcome()
 
     while True:
-        try: 
+        try:
             user_input = input("Enter a command: ")
             command, *args = parse_input(user_input)
 
             if command == "help":
                 cli.help()
 
-            if command in ["close", "exit", "bye"]:
+            elif command in ["close", "exit", "bye"]:
                 cli.bye()
                 break
-            
-            if command == "add":
+
+            elif command == "add":
                 cli.add_contact()
 
-            if command == "all":
+            elif command == "all":
                 cli.all()
 
-            if command == "search":
+            elif command == "search":
                 cli.search()
+
+            elif command == "delete":
+                cli.delete_contact()
+
+            elif command == "edit":
+                cli.edit_contact()
 
         except KeyboardInterrupt:
             # cli.bye()
-            console.print("\n🚀 A sudden retreat? Very well, the Force will be waiting for your return.", style="bold cyan")
+            console.print(
+                "\n🚀 A sudden retreat? Very well, the Force will be waiting for your return.",
+                style="bold cyan",
+            )
             return
         except ValueError as error:
             # print(error)
