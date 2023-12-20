@@ -79,9 +79,6 @@ class AddressBook(UserDict):
             table.add_row(record.name.value, phones, email, birthday, address, note)
 
         self.console.print(table)
-
-        # Since we are printing using Rich, we return an empty string for __str__
-        return ""
     
     def __str__(self):
         return self.print_records(self)
