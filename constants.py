@@ -28,3 +28,37 @@ AVAILABLE_COMMANDS = {
         "description": "Exit the assistant bot",
     },
 }
+
+# Temporary test records
+TEST_RECORDS = {
+    "John": {
+        "phones": "111222333",
+        "birthday": "01-01-1970",
+        "address": "USA",
+        "email": "john@gmail.com",
+        "note": "Kitchen service",
+    },
+    "Bob": {
+        "phones": "000444555",
+        "birthday": "01-01-1980",
+        "address": "USA",
+        "email": "bob@gmail.com",
+        "note": "New year party",
+    },
+    "Alice": {
+        "phones": "666777888",
+        "birthday": "01-01-1990",
+        "address": "USA",
+        "email": "alice@gmail.com",
+        "note": "Birthday party",
+    },
+}
+
+SEARCH_FIELDS_LIST = [
+    "name",
+    "phone",
+    "email",
+    "birthday",
+    "address",
+    "note",
+]
