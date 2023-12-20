@@ -19,7 +19,19 @@ class Phone(Field):
         return self.value
 
 class Birthday(Field):
-    pass
+    def __init__(self, value):
+        self.value - value
+        super().__init__(value) 
+
+class Address(Field):
+    def __init__(self, value):
+        self.value - value
+        super().__init__(value)
+
+class Email(Field):
+    def __init__(self, value):
+        self.value - value
+        super().__init__(value)  
 
 class Notes(Field):
     pass

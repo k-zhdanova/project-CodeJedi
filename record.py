@@ -1,5 +1,8 @@
 from fields import Name
 from fields import Phone
+from fields import Address
+from fields import Email
+from fields import Birthday
 
 class Record:
    def __init__(self, name, phone, address, email, birthday):
@@ -7,10 +10,10 @@ class Record:
         self.phones = []
         if phone:
             self.phones.append(phone)
-        self.address = address
-        self.email = email
-        self.birthday = birthday
-   
+        self.address = Address(address)
+        self.email = Email(email)
+        self.birthday = Birthday(birthday)
+ 
    def __getname__(self):
         return self.name
 
