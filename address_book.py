@@ -5,15 +5,22 @@ from rich.console import Console
 
 from collections import UserDict
 
+from validation import validate_email, validate_phone
+
+
 class AddressBook(UserDict):
     def __init__(self):
         self.data = {}
         self.console = Console()
 
     def add_record(self, record: Record):
+        if record.email and not validate_email(record.email.value):
+            return "🚨 Invalid email. Record not added."
+        if any(phone for phone in record.phones if not validate_phone(phone.value)):
+            return "🚨 Invalid phone number. Record not added."
         self.data[record.name.value] = record
         return f"{record.name.value} added to address book"
-    
+
     def search(self, field, value):
         result = None
         if field == "name":
@@ -30,12 +37,13 @@ class AddressBook(UserDict):
             result = self.search_by_note(value)
         else:
             raise ValueError("🚨 Invalid field. Please try again.")
-        
+
         if not result:
             self.console.print(f"🔍 No records found for {field} = {value}.")
             return ""
-        
-        self.console.print(f"🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}", style="bold cyan")
+
+        self.console.print(f"🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}",
+                           style="bold cyan")
 
         self.print_records(result)
 
@@ -56,8 +64,8 @@ class AddressBook(UserDict):
 
     def search_by_note(self, note):
         return [record for record in self.data.values() if note.lower() in record.note.value.lower()]
-        
-    def print_records(self, records = None):
+
+    def print_records(self, records=None):
         if not records:
             records = self.data.values()
 
@@ -79,6 +87,6 @@ class AddressBook(UserDict):
             table.add_row(record.name.value, phones, email, birthday, address, note)
 
         self.console.print(table)
-    
+
     def __str__(self):
         return self.print_records(self)
