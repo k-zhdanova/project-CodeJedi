@@ -41,14 +41,14 @@ TEST_RECORDS = {
     "Bob": {
         "phones": "000444555",
         "birthday": "01-01-1980",
-        "address": "USA",
+        "address": "Ukraine",
         "email": "bob@gmail.com",
         "note": "New year party",
     },
     "Alice": {
         "phones": "666777888",
         "birthday": "01-01-1990",
-        "address": "USA",
+        "address": "Poland",
         "email": "alice@gmail.com",
         "note": "Birthday party",
     },
