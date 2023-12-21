@@ -13,14 +13,17 @@ class AddressBook(UserDict):
     def __init__(self):
         super().__init__()
         self.storage = Storage()
-        self.data = {record.name.value: record for record in self.storage.load_data('contacts').values()}
+        loaded_data = self.storage.load_data('contacts')
+        if loaded_data is not None:
+            self.data = {record.name.value: record for record in loaded_data.values()}
         self.console = Console()
 
     def add_record(self, record: Record):
         if record.email and not validate_email(record.email.value):
-            return "🚨 Invalid email. Record not added."
-        if any(phone for phone in record.phones if not validate_phone(phone.value)):
-            return "🚨 Invalid phone number. Record not added."
+            raise ValueError(f"🚨 Invalid email {record.email.value}. Record not added.")
+        for phone in record.phones:
+            if not validate_phone(phone.value):
+                raise ValueError(f"🚨 Invalid phone number {phone.value}. Record not added.")
         self.data[record.name.value] = record
         self.storage.save_data(self.data, 'contacts')
         return f"{record.name.value} added to address book"
