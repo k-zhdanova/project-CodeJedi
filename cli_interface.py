@@ -14,6 +14,8 @@ class CLIInterface:
             self.init_test_records()
 
         self.console = Console()
+        self.welcome()
+        self.help()
 
     def init_test_records(self):
         for name, value in TEST_RECORDS.items():
