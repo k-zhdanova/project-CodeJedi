@@ -3,6 +3,10 @@ AVAILABLE_COMMANDS = {
         "preview": "hello",
         "description": "Greet the bot",
     },
+    "birthdays": {
+        "preview": "birthdays",
+        "description": "Show contacts with birthdays next period",
+    },
     "all": {
         "preview": "all",
         "description": "Get all contacts",
@@ -49,7 +53,7 @@ AVAILABLE_COMMANDS = {
 TEST_RECORDS = {
     "John": {
         "phones": ["111222333", "444555666"],
-        "birthday": "01-01-1970",
+        "birthday": "1970-01-01",
         "address": "USA",
         "email": "john@gmail.com",
         "note": "Kitchen service",
@@ -57,7 +61,7 @@ TEST_RECORDS = {
     },
     "Bob": {
         "phones": ["000444555"],
-        "birthday": "01-01-1980",
+        "birthday": "1980-02-02",
         "address": "Ukraine",
         "email": "bob@gmail.com",
         "note": "New year party",
@@ -65,7 +69,7 @@ TEST_RECORDS = {
     },
     "Alice": {
         "phones": ["777888999", "000444555", "111222333"],
-        "birthday": "01-01-1990",
+        "birthday": "1990-09-09",
         "address": "Poland",
         "email": "alice@gmail.com",
         "note": "Birthday party",

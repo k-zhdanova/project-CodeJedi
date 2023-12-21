@@ -145,12 +145,12 @@ class AddressBook(UserDict):
         return self.print_records(self)
 
 
-    def get_birthdays_per_week(self):
-        current_date = datetime.datetime.now().date()
-        one_week_later = current_date + datetime.timedelta(days=7)
-        birthdays_this_week = []
-        for name_value, record_inf in self.data.items():
-            if record_inf.birthday and current_date <= record_inf.birthday.value < one_week_later:
-                birthdays_this_week.append(name_value)
-        return birthdays_this_week
+    # def get_birthdays_per_week(self):
+    #     current_date = datetime.datetime.now().date()
+    #     one_week_later = current_date + datetime.timedelta(days=7)
+    #     birthdays_this_week = []
+    #     for name_value, record_inf in self.data.items():
+    #         if record_inf.birthday and current_date <= record_inf.birthday.value < one_week_later:
+    #             birthdays_this_week.append(name_value)
+    #     return birthdays_this_week
 

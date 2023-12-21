@@ -43,6 +43,9 @@ def main():
             elif command == "add_tag":
                 cli.add_tag()
 
+            elif command == "birthdays":
+                cli.print_upcoming_birthdays_contacts()
+
         except KeyboardInterrupt:
             # cli.bye()
             console.print(
@@ -55,9 +58,10 @@ def main():
             console.print(f"[bold red]🔥 Disturbance in the Force: {error}")
             continue
         except Exception as error:
-            console.print(f"[bold red]⚡ A great disturbance in the Force: {error}")
-            print("🧐 Unexpected this error is. Meditate on your actions, you must.")
-            continue
+            raise error
+            # console.print(f"[bold red]⚡ A great disturbance in the Force: {error}")
+            # print("🧐 Unexpected this error is. Meditate on your actions, you must.")
+            # continue
 
 
 if __name__ == "__main__":

@@ -1,3 +1,4 @@
+from birthday_reminder import BirthdayReminder
 from constants import AVAILABLE_COMMANDS, TEST_RECORDS, SEARCH_FIELDS_LIST
 from fields import Phone
 from record import Record
@@ -186,3 +187,22 @@ class CLIInterface:
         tag = input("Enter tag which should be added: ")
         record.add_tag(tag)
         self.console.print(f"[yellow]✅Tag added been has")
+
+    def print_upcoming_birthdays_contacts(self):
+        days = input("👤 Enter period in days. If empty, default 7 will be used: ")
+        if days == "":
+            days = "7"
+
+        try:
+            days = int(days)
+        except ValueError:
+            raise ValueError("'days' must be a number")
+
+        contacts = list(self.book.data.values())
+        upcoming = BirthdayReminder.get_upcoming_birthdays_contacts(contacts, days)
+
+        if not upcoming:
+            print(f"No upcoming birthdays in next {days} days")
+        else:
+            self.book.print_records(upcoming)
+
