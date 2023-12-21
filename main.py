@@ -38,6 +38,12 @@ def main():
             elif command == "edit":
                 cli.edit_contact()
 
+            elif command == "add_phone":
+                cli.add_phone()
+
+            elif command == "add_tag":
+                cli.add_tag()
+
         except KeyboardInterrupt:
             # cli.bye()
             console.print(

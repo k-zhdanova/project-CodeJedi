@@ -2,7 +2,6 @@ from record import Record
 from collections import UserDict
 from rich.table import Table
 from rich.console import Console
-
 from collections import UserDict
 
 from validation import validate_email, validate_phone
@@ -25,7 +24,7 @@ class AddressBook(UserDict):
         if name in self.data:
             return self.data[name]
         else:
-            return f"{name} was not found"  # raise NotFoundError
+            raise ValueError(f"🚨 {name} was not found")
 
     def delete_contact(self, name):
         if name in self.data:
@@ -47,6 +46,8 @@ class AddressBook(UserDict):
             result = self.search_by_address(value)
         elif field == "note":
             result = self.search_by_note(value)
+        elif field == "tag":
+            result = self.search_by_tag(value)
         else:
             raise ValueError("🚨 Invalid field. Please try again.")
 
@@ -101,6 +102,13 @@ class AddressBook(UserDict):
             if note.lower() in record.note.value.lower()
         ]
 
+    def search_by_tag(self, tag):
+        return [
+            record
+            for record in self.data.values()
+            if any(tag in t.value for t in record.tags)
+        ]
+
     def print_records(self, records=None):
         if not records:
             records = self.data.values()
@@ -112,6 +120,7 @@ class AddressBook(UserDict):
         table.add_column("Birthday", justify="center")
         table.add_column("Address", justify="center")
         table.add_column("Note", justify="center")
+        table.add_column("Tags", justify="center")
 
         for record in records:
             phones = "; ".join(p.value for p in record.phones)
@@ -119,8 +128,11 @@ class AddressBook(UserDict):
             birthday = record.birthday.value if record.birthday else "N/A"
             address = record.address.value if record.address else "N/A"
             note = record.note.value if record.note else "N/A"
+            tags = "; ".join(t.value for t in record.tags)
 
-            table.add_row(record.name.value, phones, email, birthday, address, note)
+            table.add_row(
+                record.name.value, phones, email, birthday, address, note, tags
+            )
 
         self.console.print(table)
 
