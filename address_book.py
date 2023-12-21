@@ -1,16 +1,19 @@
 import datetime
+
 from record import Record
-from collections import UserDict
 from rich.table import Table
 from rich.console import Console
 from collections import UserDict
-from validation import validate_email, validate_phone
 
+from storage import Storage
+from validation import validate_email, validate_phone
 
 
 class AddressBook(UserDict):
     def __init__(self):
-        self.data = {}
+        super().__init__()
+        self.storage = Storage()
+        self.data = {record.name.value: record for record in self.storage.load_data('contacts').values()}
         self.console = Console()
 
     def add_record(self, record: Record):
@@ -19,8 +22,8 @@ class AddressBook(UserDict):
         if any(phone for phone in record.phones if not validate_phone(phone.value)):
             return "🚨 Invalid phone number. Record not added."
         self.data[record.name.value] = record
+        self.storage.save_data(self.data, 'contacts')
         return f"{record.name.value} added to address book"
-
 
     def find(self, name):
         if name in self.data:
@@ -33,6 +36,7 @@ class AddressBook(UserDict):
             del self.data[name]
         else:
             return f"{name} was not found"
+        self.storage.save_data(self.data, 'contacts')
 
     def search(self, field, value):
         result = None
@@ -61,7 +65,6 @@ class AddressBook(UserDict):
             f"🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}",
             style="bold cyan",
         )
-
 
         self.print_records(result)
 
@@ -113,7 +116,6 @@ class AddressBook(UserDict):
             if any(tag in t.value for t in record.tags)
         ]
 
-
     def print_records(self, records=None):
         if not records:
             records = self.data.values()
@@ -144,7 +146,6 @@ class AddressBook(UserDict):
     def __str__(self):
         return self.print_records(self)
 
-
     def get_birthdays_per_week(self):
         current_date = datetime.datetime.now().date()
         one_week_later = current_date + datetime.timedelta(days=7)
@@ -153,4 +154,3 @@ class AddressBook(UserDict):
             if record_inf.birthday and current_date <= record_inf.birthday.value < one_week_later:
                 birthdays_this_week.append(name_value)
         return birthdays_this_week
-
