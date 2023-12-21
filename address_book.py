@@ -5,7 +5,7 @@ from rich.table import Table
 from rich.console import Console
 from collections import UserDict
 from validation import validate_email, validate_phone
-
+from error_handler import NotFoundError, WrongFieldError
 
 
 class AddressBook(UserDict):
@@ -18,21 +18,22 @@ class AddressBook(UserDict):
             return "🚨 Invalid email. Record not added."
         if any(phone for phone in record.phones if not validate_phone(phone.value)):
             return "🚨 Invalid phone number. Record not added."
+        print("after validation")
         self.data[record.name.value] = record
+        print(self.data[record.name.value])
         return f"{record.name.value} added to address book"
-
 
     def find(self, name):
         if name in self.data:
             return self.data[name]
         else:
-            raise ValueError(f"🚨 {name} was not found")
+            raise NotFoundError
 
     def delete_contact(self, name):
         if name in self.data:
             del self.data[name]
         else:
-            return f"{name} was not found"
+            raise NotFoundError
 
     def search(self, field, value):
         result = None
@@ -51,7 +52,7 @@ class AddressBook(UserDict):
         elif field == "tag":
             result = self.search_by_tag(value)
         else:
-            raise ValueError("🚨 Invalid field. Please try again.")
+            raise WrongFieldError
 
         if not result:
             self.console.print(f"🔍 No records found for {field} = {value}.")
@@ -61,7 +62,6 @@ class AddressBook(UserDict):
             f"🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}",
             style="bold cyan",
         )
-
 
         self.print_records(result)
 
@@ -99,7 +99,6 @@ class AddressBook(UserDict):
         ]
 
     def search_by_note(self, note):
-
         return [
             record
             for record in self.data.values()
@@ -112,7 +111,6 @@ class AddressBook(UserDict):
             for record in self.data.values()
             if any(tag in t.value for t in record.tags)
         ]
-
 
     def print_records(self, records=None):
         if not records:
@@ -144,13 +142,14 @@ class AddressBook(UserDict):
     def __str__(self):
         return self.print_records(self)
 
-
     def get_birthdays_per_week(self):
         current_date = datetime.datetime.now().date()
         one_week_later = current_date + datetime.timedelta(days=7)
         birthdays_this_week = []
         for name_value, record_inf in self.data.items():
-            if record_inf.birthday and current_date <= record_inf.birthday.value < one_week_later:
+            if (
+                record_inf.birthday
+                and current_date <= record_inf.birthday.value < one_week_later
+            ):
                 birthdays_this_week.append(name_value)
         return birthdays_this_week
-

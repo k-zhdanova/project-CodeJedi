@@ -1,4 +1,5 @@
 from fields import Name, Phone, Address, Email, Birthday, Note, Tag
+from error_handler import InvalidTagError, InvalidPhoneError
 
 
 class Record:
@@ -23,7 +24,7 @@ class Record:
         try:
             self.phones.append(Phone(phone))
         except ValueError:
-            return "Invalid phone number format"
+            raise InvalidPhoneError
         return f"{phone} is added"
 
     def delete_phone(self, phone):
@@ -46,7 +47,7 @@ class Record:
         try:
             self.tags.append(Tag(tag))
         except ValueError:
-            return "Invalid tag number format"
+            raise InvalidTagError
         return f"{tag} is added"
 
     def delete_tag(self, tag):
@@ -64,8 +65,6 @@ class Record:
             if i.value == tag:
                 return index
             index += 1
-
-    # error handler - IndexError
 
     def delete_address(self):
         self.address = None
