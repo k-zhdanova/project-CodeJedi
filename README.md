@@ -1,25 +1,32 @@
-# project-CodeJedi
-
 # CodeJedi project
+
 **Welcome to the Galactic Address Book, your guide in the vast universe of contacts.
 💫 May the Force be with you.**
 
+1. **Installation**
 
-1. **Install**
-```Init local virtual env:
+Initiate local virtual environment:
+```bash
 	python3 -m venv .env
-
+```
+    
 Install dependencies:
+    
+```bash
 	pip install -r requirements.txt
 ```
-2. **Activate:**
-run:
+
+2. **Activation:**
+
+To activate, run:
+
 ```
 	source .env/bin/activate
 ```
 3. **Menu**
 
-```hello: Greet the bot
+```
+ - 🌟 hello: Greet the bot
  - 🌟 all: Get all contacts
  - 🌟 add: Add a new contact
  - 🌟 add_phone: Add a new phone
@@ -33,69 +40,50 @@ run:
 ```
 4. **Usage:**
 
-   🌟_Type a command from Menu:_
+    Type a command from Menu:
   
   ```
   all, add, add_phone, add_tag, edit, delete, help, exit, close, bye
   ```
   
-  **all** 
+  **all:**  No aditional actions required
   
-  No aditional actions required
+  **add:** User will be prompted to input:
   
-  **add**
+  - name [required field]
   
-  User will be asked to input:
+  - phone [required field]
   
-  _name [required field]_
+  - address [optional field]
   
-  _phone [required field]_
+  - email [optional field]
   
-  _address [optional field]_
+  - birthday [optional field]
   
-  _email [optional field]_
+  **add_phone:** Phone number ir required
   
-  _birthday [optional field]_
+  **add_tag:** Tag is required
   
-  **add_phone**
+  **edit:** User will be prompted to input:
+  - field to edit
+  - new value
   
-  phone numrer ir required
-  
-  **add_tag**
-  
-  tag is required
-  
-  **edit**
-  
-  User will be asked to input:
-  
- _field to edit_ &
- _new value_
  
- if _field to edit_ is phone: _old phone & new value_
+ if _field to edit_ is phone: 
+  - old phone 
+  - new value
   
-  **delete**
+  **delete:** User will be prompted to input:
+  - name [required]
 
-User will be asked to input:
+**help:** No aditional actions required
 
-_name [required]_
+**exit:** No aditional actions required
 
-**help**
+**close:** No aditional actions required
 
-No aditional actions required
+**bye:** No aditional actions required  
 
-
-**exit**
-
-No aditional actions required
-
-
-**close**
-
-No aditional actions required
-
-**bye**
-  
-No aditional actions required  
+---
   
 **💫 Farewell, and may the Force be with you always.**
