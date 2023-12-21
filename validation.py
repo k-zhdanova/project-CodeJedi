@@ -8,3 +8,4 @@ def validate_email(email):
 
 def validate_phone(phone):
     return re.match(r"\+?1?\d{9,15}$", phone) is not None
+#test
