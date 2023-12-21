@@ -4,6 +4,8 @@ from rich.table import Table
 from rich.console import Console
 from collections import UserDict
 
+from validation import validate_email, validate_phone
+
 
 class AddressBook(UserDict):
     def __init__(self):
@@ -11,6 +13,10 @@ class AddressBook(UserDict):
         self.console = Console()
 
     def add_record(self, record: Record):
+        if record.email and not validate_email(record.email.value):
+            return "🚨 Invalid email. Record not added."
+        if any(phone for phone in record.phones if not validate_phone(phone.value)):
+            return "🚨 Invalid phone number. Record not added."
         self.data[record.name.value] = record
         return f"{record.name.value} added to address book"
 
