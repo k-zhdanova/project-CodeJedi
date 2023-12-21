@@ -76,6 +76,9 @@ source .env/bin/activate
   **delete:** User will be prompted to input:
   - name [required]
 
+  **show-birthday:** User will be prompted to input:
+  - name [required]
+
 **help:** No aditional actions required
 
 **exit:** No aditional actions required
