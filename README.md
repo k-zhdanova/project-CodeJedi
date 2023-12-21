@@ -7,13 +7,13 @@
 
 Initiate local virtual environment:
 ```bash
-	python3 -m venv .env
+python3 -m venv .env
 ```
     
 Install dependencies:
     
 ```bash
-	pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 2. **Activation:**
@@ -21,7 +21,7 @@ Install dependencies:
 To activate, run:
 
 ```
-	source .env/bin/activate
+source .env/bin/activate
 ```
 3. **Menu**
 
