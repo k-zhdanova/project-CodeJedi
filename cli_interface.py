@@ -25,6 +25,7 @@ class CLIInterface:
                 value["email"],
                 value["birthday"],
                 value["note"],
+                value["tags"],
             )
             self.book.add_record(record)
 
@@ -96,8 +97,10 @@ class CLIInterface:
         birthday = input(
             "🎉 Enter the contact's birthday (format: YYYY-MM-DD, e.g., 1977-05-25): "
         )
+        note = input("📝 Enter the contact's note (e.g., Jedi Master): ")
+        tag = input("🏷 Enter the contact's tag (e.g., friends): ")
 
-        record = Record(name, phone, address, email, birthday)
+        record = Record(name, [phone], address, email, birthday, note, [tag])
         self.book.add_record(record)
         self.console.print(
             f"[yellow]✅ {name} has been added to your Galactic Address Book.",
@@ -128,6 +131,9 @@ class CLIInterface:
                     self.change_birthday(name, value, self.book)
                 elif field_to_edit == "note":
                     self.change_note(name, value, self.book)
+                elif field_to_edit == "tag":
+                    old_tag = input("Enter tag which should be changed: ")
+                    self.change_tag(name, old_tag, value, self.book)
                 else:
                     print("Field is not exist")
         else:
@@ -157,3 +163,24 @@ class CLIInterface:
         record = book.find(name)
         record.edit_note(note)
         self.console.print(f"[yellow]✅Note edited been has")
+
+    def change_tag(self, name, old_tag, tag, book):
+        record = book.find(name)
+        record.edit_tag(old_tag, tag)
+        self.console.print(f"[yellow]✅Tag edited been has")
+
+    def add_phone(self):
+        name = input("👤 Enter the contact's name: ")
+        record = self.book.find(name)
+
+        phone = input("Enter phone which should be added: ")
+        record.add_phone(phone)
+        self.console.print(f"[yellow]✅Phone added been has")
+
+    def add_tag(self):
+        name = input("👤 Enter the contact's name: ")
+        record = self.book.find(name)
+
+        tag = input("Enter tag which should be added: ")
+        record.add_tag(tag)
+        self.console.print(f"[yellow]✅Tag added been has")

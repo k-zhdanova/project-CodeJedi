@@ -8,7 +8,7 @@ AVAILABLE_COMMANDS = {
         "description": "Get all contacts",
     },
     "add": {
-        "preview": "add <name> <phone>",
+        "preview": "add",
         "description": "Add a new contact",
     },
     "help": {
@@ -32,25 +32,28 @@ AVAILABLE_COMMANDS = {
 # Temporary test records
 TEST_RECORDS = {
     "John": {
-        "phones": "111222333",
+        "phones": ["111222333", "444555666"],
         "birthday": "01-01-1970",
         "address": "USA",
         "email": "john@gmail.com",
         "note": "Kitchen service",
+        "tags": ["family"],
     },
     "Bob": {
-        "phones": "000444555",
+        "phones": ["000444555"],
         "birthday": "01-01-1980",
         "address": "Ukraine",
         "email": "bob@gmail.com",
         "note": "New year party",
+        "tags": ["friends", "family", "work"],
     },
     "Alice": {
-        "phones": "666777888",
+        "phones": ["777888999", "000444555", "111222333"],
         "birthday": "01-01-1990",
         "address": "Poland",
         "email": "alice@gmail.com",
         "note": "Birthday party",
+        "tags": ["friends"],
     },
 }
 
@@ -61,4 +64,5 @@ SEARCH_FIELDS_LIST = [
     "birthday",
     "address",
     "note",
+    "tag",
 ]
