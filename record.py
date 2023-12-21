@@ -65,7 +65,11 @@ class Record:
                 return index
             index += 1
 
-    # error handler - IndexError
+    def add_birthday(self, birthday):
+        self.birthday = Birthday(birthday)
+
+    def show_birthday(self):
+        return self.birthday
 
     def delete_address(self):
         self.address = None

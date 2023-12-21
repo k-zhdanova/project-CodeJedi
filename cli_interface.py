@@ -186,3 +186,10 @@ class CLIInterface:
         tag = input("Enter tag which should be added: ")
         record.add_tag(tag)
         self.console.print(f"[yellow]✅Tag added been has")
+
+    def show_birthday(self):
+        name = input("Enter name ")
+        record = self.book.find(name)
+        if record.birthday == None:
+            print("no saved birthday")  # raise NoBirthdayError()
+        print(record.birthday)

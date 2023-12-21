@@ -7,7 +7,6 @@ from collections import UserDict
 from validation import validate_email, validate_phone
 
 
-
 class AddressBook(UserDict):
     def __init__(self):
         self.data = {}
@@ -20,7 +19,6 @@ class AddressBook(UserDict):
             return "🚨 Invalid phone number. Record not added."
         self.data[record.name.value] = record
         return f"{record.name.value} added to address book"
-
 
     def find(self, name):
         if name in self.data:
@@ -62,7 +60,6 @@ class AddressBook(UserDict):
             style="bold cyan",
         )
 
-
         self.print_records(result)
 
     def search_by_name(self, name):
@@ -99,7 +96,6 @@ class AddressBook(UserDict):
         ]
 
     def search_by_note(self, note):
-
         return [
             record
             for record in self.data.values()
@@ -112,7 +108,6 @@ class AddressBook(UserDict):
             for record in self.data.values()
             if any(tag in t.value for t in record.tags)
         ]
-
 
     def print_records(self, records=None):
         if not records:
@@ -144,13 +139,14 @@ class AddressBook(UserDict):
     def __str__(self):
         return self.print_records(self)
 
-
     def get_birthdays_per_week(self):
         current_date = datetime.datetime.now().date()
         one_week_later = current_date + datetime.timedelta(days=7)
         birthdays_this_week = []
         for name_value, record_inf in self.data.items():
-            if record_inf.birthday and current_date <= record_inf.birthday.value < one_week_later:
+            if (
+                record_inf.birthday
+                and current_date <= record_inf.birthday.value < one_week_later
+            ):
                 birthdays_this_week.append(name_value)
         return birthdays_this_week
-

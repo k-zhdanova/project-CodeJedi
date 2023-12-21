@@ -43,6 +43,9 @@ def main():
             elif command == "add_tag":
                 cli.add_tag()
 
+            elif command == "show-birthday":
+                cli.show_birthday()
+
         except KeyboardInterrupt:
             # cli.bye()
             console.print(
