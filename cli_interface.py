@@ -12,6 +12,8 @@ from error_handler import (
     PhoneRequiredError,
     InvalidTagError,
     InvalidPhoneError,
+    InvalidEmailError,
+    InvalidDateError,
 )
 
 
@@ -33,12 +35,15 @@ def input_error(func):
             print("🚨 Invalid tag number format")
         except InvalidPhoneError:
             print("🚨 Invalid phone number format")
+        except InvalidEmailError:
+            print("🚨 Invalid email number format")
+        except InvalidDateError:
+            print("🚨 Invalid birthday number format. Should be Year-month-day ")
 
     return inner
 
+
 class CLIInterface:
-    
-    
     def __init__(self, book: AddressBook):
         self.book = book
 
@@ -82,6 +87,7 @@ class CLIInterface:
         self.console.print(
             "\n🌌 Farewell, and may the Force be with you always.", style="bold cyan"
         )
+
     def all(self):
         self.console.print(
             "🔭 Revealing all beings within your Galactic Address Book:",
@@ -139,6 +145,7 @@ class CLIInterface:
             f"[yellow]✅ {name} has been added to your Galactic Address Book.",
             style="bold cyan",
         )
+
     @input_error
     def delete_contact(self):
         name = input("👤 Enter the contact's name (e.g., Luke Skywalker) [required]: ")
