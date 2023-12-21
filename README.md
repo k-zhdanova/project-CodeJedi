@@ -33,6 +33,7 @@ source .env/bin/activate
  - 🌟 add_tag: Add a new tag
  - 🌟 edit: Editing existing contacts
  - 🌟 delete: Delete an existing contact
+ - 🌟 show-birthday: Show birthday contact's birthday
  - 🌟 help: Show all available commands
  - 🌟 exit: Exit the assistant bot
  - 🌟 close: Exit the assistant bot
