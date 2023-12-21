@@ -9,7 +9,6 @@ def main():
     book = AddressBook()
 
     cli = CLIInterface(book)
-    cli.welcome()
 
     while True:
         try:

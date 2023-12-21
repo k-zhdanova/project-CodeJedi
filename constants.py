@@ -11,6 +11,22 @@ AVAILABLE_COMMANDS = {
         "preview": "add",
         "description": "Add a new contact",
     },
+    "add_phone": {
+        "preview": "add_phone",
+        "description": "Add a new phone",
+    },
+    "add_tag": {
+        "preview": "add_tag",
+        "description": "Add a new tag",
+    },
+    "edit": {
+        "preview": "edit",
+        "description": "Editing existing contacts",
+    },
+    "delete": {
+        "preview": "delete",
+        "description": "Delete an existing contact",
+    },
     "help": {
         "preview": "help",
         "description": "Show all available commands",
