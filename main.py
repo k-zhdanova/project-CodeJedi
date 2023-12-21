@@ -58,10 +58,9 @@ def main():
             console.print(f"[bold red]🔥 Disturbance in the Force: {error}")
             continue
         except Exception as error:
-            raise error
-            # console.print(f"[bold red]⚡ A great disturbance in the Force: {error}")
-            # print("🧐 Unexpected this error is. Meditate on your actions, you must.")
-            # continue
+            console.print(f"[bold red]⚡ A great disturbance in the Force: {error}")
+            print("🧐 Unexpected this error is. Meditate on your actions, you must.")
+            continue
 
 
 if __name__ == "__main__":
