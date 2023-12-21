@@ -21,6 +21,18 @@ class AddressBook(UserDict):
         self.data[record.name.value] = record
         return f"{record.name.value} added to address book"
 
+    def find(self, name):
+        if name in self.data:
+            return self.data[name]
+        else:
+            return f"{name} was not found"  # raise NotFoundError
+
+    def delete_contact(self, name):
+        if name in self.data:
+            del self.data[name]
+        else:
+            return f"{name} was not found"
+
     def search(self, field, value):
         result = None
         if field == "name":
@@ -42,28 +54,52 @@ class AddressBook(UserDict):
             self.console.print(f"🔍 No records found for {field} = {value}.")
             return ""
 
-        self.console.print(f"🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}",
-                           style="bold cyan")
+        self.console.print(
+            f"🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}",
+            style="bold cyan",
+        )
 
         self.print_records(result)
 
     def search_by_name(self, name):
-        return [record for record in self.data.values() if name.lower() in record.name.value.lower()]
+        return [
+            record
+            for record in self.data.values()
+            if name.lower() in record.name.value.lower()
+        ]
 
     def search_by_phone(self, phone):
-        return [record for record in self.data.values() if any(phone in p.value for p in record.phones)]
+        return [
+            record
+            for record in self.data.values()
+            if any(phone in p.value for p in record.phones)
+        ]
 
     def search_by_email(self, email):
-        return [record for record in self.data.values() if email.lower() in record.email.value.lower()]
+        return [
+            record
+            for record in self.data.values()
+            if email.lower() in record.email.value.lower()
+        ]
 
     def search_by_birthday(self, birthday):
-        return [record for record in self.data.values() if birthday in record.birthday.value]
+        return [
+            record for record in self.data.values() if birthday in record.birthday.value
+        ]
 
     def search_by_address(self, address):
-        return [record for record in self.data.values() if address.lower() in record.address.value.lower()]
+        return [
+            record
+            for record in self.data.values()
+            if address.lower() in record.address.value.lower()
+        ]
 
     def search_by_note(self, note):
-        return [record for record in self.data.values() if note.lower() in record.note.value.lower()]
+        return [
+            record
+            for record in self.data.values()
+            if note.lower() in record.note.value.lower()
+        ]
 
     def print_records(self, records=None):
         if not records:
@@ -78,7 +114,7 @@ class AddressBook(UserDict):
         table.add_column("Note", justify="center")
 
         for record in records:
-            phones = '; '.join(p.value for p in record.phones)
+            phones = "; ".join(p.value for p in record.phones)
             email = record.email.value if record.email else "N/A"
             birthday = record.birthday.value if record.birthday else "N/A"
             address = record.address.value if record.address else "N/A"
