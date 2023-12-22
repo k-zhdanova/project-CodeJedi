@@ -176,8 +176,13 @@ class CLIInterface:
                 elif field_to_edit == "tag":
                     old_tag = input("Enter tag which should be changed: ")
                     self.change_tag(name, old_tag, value, self.book)
+
+                self.save_contacts()
         else:
             raise NotFoundError
+
+    def save_contacts(self):
+        self.book.save_contacts()
 
     @input_error
     def change_phone(self, name, old_phone, phone, book):

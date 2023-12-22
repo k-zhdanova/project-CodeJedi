@@ -24,8 +24,11 @@ class AddressBook(UserDict):
             if validate_phone(phone.value) == False:
                 raise ValueError(f"🚨 Invalid phone number {phone.value}. Record not added.")
         self.data[record.name.value] = record
-        self.storage.save_data(self.data, 'contacts')
+        self.save_contacts()
         return f"{record.name.value} added to address book"
+
+    def save_contacts(self):
+        self.storage.save_contacts(self.data)
 
     def find(self, name):
         if name in self.data:

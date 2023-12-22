@@ -21,6 +21,9 @@ class Storage:
         with open(file_path, 'w') as file:
             json.dump(data, file, default=self._custom_serializer, indent=4)
 
+    def save_contacts(self, data):
+        self.save_data(data, 'contacts')
+
     def load_data(self, file_name):
         file_path = self._get_file(file_name)
         if not os.path.exists(file_path):
