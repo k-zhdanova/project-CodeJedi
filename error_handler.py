@@ -32,3 +32,11 @@ class InvalidEmailError(Exception):
 
 class InvalidDateError(Exception):
     pass
+
+
+class InvalidPhoneError(Exception):
+    pass
+
+
+class InvalidTagError(Exception):
+    pass

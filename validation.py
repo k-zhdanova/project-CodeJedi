@@ -1,10 +1,12 @@
 # validation.py
 import re
+from error_handler import InvalidEmailError, InvalidPhoneError
 
 
 def validate_email(email):
-    return re.match(r"[^@]+@[^@]+\.[^@]+", email) is not None
-
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        raise InvalidEmailError(f"Invalid email format")
 
 def validate_phone(phone):
-    return re.match(r"\+?1?\d{9,15}$", phone) is not None
+    if not re.match(r"\+?1?\d{9,15}$", phone):
+        raise InvalidPhoneError(f"Invalid phone number format")

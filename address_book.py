@@ -25,7 +25,7 @@ class AddressBook(UserDict):
                 raise ValueError(f"🚨 Invalid phone number {phone.value}. Record not added.")
         self.data[record.name.value] = record
         self.save_contacts()
-        return f"{record.name.value} added to address book"
+        return f"{record.name.value} added to Galactic Address Book"
 
     def save_contacts(self):
         self.storage.save_contacts(self.data)
@@ -34,13 +34,13 @@ class AddressBook(UserDict):
         if name in self.data:
             return self.data[name]
         else:
-            raise NotFoundError
+            raise NotFoundError(f"Contact not found: {name}")
 
     def delete_contact(self, name):
         if name in self.data:
             del self.data[name]
         else:
-            raise NotFoundError
+            raise NotFoundError(f"Contact not found: {name}")
 
     def search(self, field, value):
         result = None
