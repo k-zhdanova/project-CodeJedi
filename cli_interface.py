@@ -151,6 +151,7 @@ class CLIInterface:
     def delete_contact(self):
         name = input("👤 Enter the contact's name (e.g., Luke Skywalker) [required]: ")
         self.book.delete_contact(name)
+        self.save_contacts()
         self.console.print(f"[yellow]✅Contact {name} deleted been has")
 
     @input_error
