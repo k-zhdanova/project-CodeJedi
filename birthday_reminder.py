@@ -9,6 +9,9 @@ class BirthdayReminder:
         current_date = datetime.now()
 
         for contact in contacts:
+            if contact.birthday.value == "":
+                continue
+
             birthday_this_year = datetime.strptime(contact.birthday.value, "%Y-%m-%d").replace(year=current_date.year)
 
             delta = (birthday_this_year - current_date).days
