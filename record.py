@@ -5,66 +5,78 @@ from error_handler import InvalidTagError, InvalidPhoneError
 class Record:
     def __init__(self, name, phones, address, email, birthday, note, tags):
         self.name = Name(name)
-        self.phones = []
-
-        for phone in phones:
-            self.phones.append(Phone(phone))
-
+        self.phones = [Phone(phone) for phone in phones]
         self.address = Address(address)
         self.email = Email(email)
         self.birthday = Birthday(birthday)
         self.note = Note(note)
-
-        self.tags = []
-
-        for tag in tags:
-            self.tags.append(Tag(tag))
+        self.tags = [Tag(tag) for tag in tags]
 
     def add_phone(self, phone):
         try:
             self.phones.append(Phone(phone))
-        except ValueError:
-            raise InvalidPhoneError
-        return f"{phone} is added"
+        except ValueError as e:
+            raise InvalidPhoneError(f"Invalid phone number: {e}")
 
     def delete_phone(self, phone):
-        self.phones.remove(self.phones[self.get_phone_index(phone)])
+        index = self.get_phone_index(phone)
+        if index != -1:
+            del self.phones[index]
+        else:
+            raise InvalidPhoneError(f"Phone number not found: {phone}")
 
     def find_phone(self, phone):
-        return str(self.phones[self.get_phone_index(phone)])
+        index = self.get_phone_index(phone)
+        if index != -1:
+            return str(self.phones[index])
+        else:
+            raise InvalidPhoneError(f"Phone number not found: {phone}")
 
-    def edit_phone(self, old_phone, phone):
-        self.phones[self.get_phone_index(old_phone)] = Phone(phone)
+    def edit_phone(self, old_phone, new_phone):
+        index = self.get_phone_index(old_phone)
+        if index != -1:
+            self.phones[index] = Phone(new_phone)
+        else:
+            raise InvalidPhoneError(f"Old phone number not found: {old_phone}")
 
     def get_phone_index(self, phone):
-        index = 0
-        for i in self.phones:
-            if i.value == phone:
+        for index, p in enumerate(self.phones):
+            if p.value == phone:
                 return index
-            index += 1
+        return -1
 
     def add_tag(self, tag):
         try:
             self.tags.append(Tag(tag))
-        except ValueError:
-            raise InvalidTagError
-        return f"{tag} is added"
+        except ValueError as e:
+            raise InvalidTagError(f"Invalid tag: {e}")
 
     def delete_tag(self, tag):
-        self.tags.remove(self.tags[self.get_tag_index(tag)])
+        index = self.get_tag_index(tag)
+        if index != -1:
+            del self.tags[index]
+        else:
+            raise InvalidTagError(f"Tag not found: {tag}")
 
     def find_tag(self, tag):
-        return str(self.tags[self.get_tag_index(tag)])
+        index = self.get_tag_index(tag)
+        if index != -1:
+            return str(self.tags[index])
+        else:
+            raise InvalidTagError(f"Tag not found: {tag}")
 
-    def edit_tag(self, old_tag, tag):
-        self.tags[self.get_tag_index(old_tag)] = tag(tag)
+    def edit_tag(self, old_tag, new_tag):
+        index = self.get_tag_index(old_tag)
+        if index != -1:
+            self.tags[index] = Tag(new_tag)
+        else:
+            raise InvalidTagError(f"Old tag not found: {old_tag}")
 
     def get_tag_index(self, tag):
-        index = 0
-        for i in self.tags:
-            if i.value == tag:
+        for index, t in enumerate(self.tags):
+            if t.value == tag:
                 return index
-            index += 1
+        return -1
 
     def add_birthday(self, birthday):
         self.birthday = Birthday(birthday)
@@ -76,22 +88,22 @@ class Record:
         self.address = None
 
     def edit_address(self, address):
-        self.address = address
+        self.address = Address(address)
 
     def edit_email(self, email):
-        self.email = email
+        self.email = Email(email)
 
     def delete_email(self):
         self.email = None
 
     def edit_birthday(self, birthday):
-        self.birthday = birthday
+        self.birthday = Birthday(birthday)
 
     def delete_birthday(self):
         self.birthday = None
 
     def edit_note(self, note):
-        self.note = note
+        self.note = Note(note)
 
     def delete_note(self):
         self.note = None

@@ -12,7 +12,7 @@ def main():
 
     while True:
         try:
-            user_input = input("Enter a command: ")
+            user_input = input("🌌 Enter a command: ")
             command, *args = parse_input(user_input)
 
             if command == "help":
