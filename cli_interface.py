@@ -306,3 +306,29 @@ class CLIInterface:
         else:
             self.book.print_records(upcoming)
 
+    def suggest_command(self, user_input):
+        user_input = user_input.lower().strip()
+        keywords = {
+            'add': ['add', 'new', 'create', 'insert'],
+            'search': ['search', 'find', 'lookup', 'query'],
+            'delete': ['delete', 'remove', 'discard', 'erase'],
+            'edit': ['edit', 'modify', 'change', 'update'],
+            'birthday': ['birthday', 'birth date', 'bday'],
+            'help': ['help', 'assist', 'support', 'guide'],
+            'exit': ['exit', 'close', 'leave', 'quit']
+        }
+
+        suggested_command = None
+        highest_match_count = 0
+
+        for command, command_keywords in keywords.items():
+            match_count = sum(keyword in user_input for keyword in command_keywords)
+            if match_count > highest_match_count:
+                highest_match_count = match_count
+                suggested_command = command
+
+        if suggested_command:
+            self.console.print(f"Suggested Command: {suggested_command}", style="bold cyan")
+        else: 
+            self.console.print(f"[bold red]🚨 Unfortunatelly, we can't suggest any command for you")
+
