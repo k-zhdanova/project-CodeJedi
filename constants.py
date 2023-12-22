@@ -31,6 +31,10 @@ AVAILABLE_COMMANDS = {
         "preview": "delete",
         "description": "Delete an existing contact",
     },
+    "show-birthday-": {
+        "preview": "show-birthday",
+        "description": "Show birthday contact's birthday",
+    },
     "help": {
         "preview": "help",
         "description": "Show all available commands",

@@ -1,5 +1,4 @@
 import datetime
-
 from record import Record
 from rich.table import Table
 from rich.console import Console

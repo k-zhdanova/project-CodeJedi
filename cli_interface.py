@@ -233,6 +233,13 @@ class CLIInterface:
         record.add_tag(tag)
         self.console.print(f"[yellow]✅Tag added been has")
 
+    def show_birthday(self):
+        name = input("Enter name ")
+        record = self.book.find(name)
+        if record.birthday == None:
+            print("no saved birthday")  # raise NoBirthdayError()
+        self.console.print(f"[spring_green2]🎉 {name}'s birthday {record.birthday} is")
+        
     def print_upcoming_birthdays_contacts(self):
         days = input("👤 Enter period in days. If empty, default 7 will be used: ")
         if days == "":

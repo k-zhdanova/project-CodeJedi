@@ -43,6 +43,9 @@ def main():
             elif command == "add_tag":
                 cli.add_tag()
 
+            elif command == "show-birthday":
+                cli.show_birthday()
+                
             elif command == "birthdays":
                 cli.print_upcoming_birthdays_contacts()
 

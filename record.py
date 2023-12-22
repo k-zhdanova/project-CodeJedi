@@ -66,6 +66,12 @@ class Record:
                 return index
             index += 1
 
+    def add_birthday(self, birthday):
+        self.birthday = Birthday(birthday)
+
+    def show_birthday(self):
+        return self.birthday
+
     def delete_address(self):
         self.address = None
 
@@ -107,3 +113,5 @@ class Record:
 
     def __getnote__(self):
         return self.note
+
+    
