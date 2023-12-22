@@ -4,10 +4,9 @@ from record import Record
 from rich.table import Table
 from rich.console import Console
 from collections import UserDict
-
-from storage import Storage
 from validation import validate_email, validate_phone
-
+from error_handler import NotFoundError, WrongFieldError
+from storage import Storage
 
 class AddressBook(UserDict):
     def __init__(self):
@@ -32,14 +31,13 @@ class AddressBook(UserDict):
         if name in self.data:
             return self.data[name]
         else:
-            raise ValueError(f"🚨 {name} was not found")
+            raise NotFoundError
 
     def delete_contact(self, name):
         if name in self.data:
             del self.data[name]
         else:
-            return f"{name} was not found"
-        self.storage.save_data(self.data, 'contacts')
+            raise NotFoundError
 
     def search(self, field, value):
         result = None
@@ -58,7 +56,7 @@ class AddressBook(UserDict):
         elif field == "tag":
             result = self.search_by_tag(value)
         else:
-            raise ValueError("🚨 Invalid field. Please try again.")
+            raise WrongFieldError
 
         if not result:
             self.console.print(f"🔍 No records found for {field} = {value}.")
@@ -105,7 +103,6 @@ class AddressBook(UserDict):
         ]
 
     def search_by_note(self, note):
-
         return [
             record
             for record in self.data.values()
@@ -154,7 +151,9 @@ class AddressBook(UserDict):
         one_week_later = current_date + datetime.timedelta(days=7)
         birthdays_this_week = []
         for name_value, record_inf in self.data.items():
-            if record_inf.birthday and current_date <= record_inf.birthday.value < one_week_later:
+            if (
+                record_inf.birthday
+                and current_date <= record_inf.birthday.value < one_week_later
+            ):
                 birthdays_this_week.append(name_value)
         return birthdays_this_week
-
