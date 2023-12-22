@@ -1,3 +1,4 @@
+import validation
 from birthday_reminder import BirthdayReminder
 from constants import AVAILABLE_COMMANDS, TEST_RECORDS, SEARCH_FIELDS_LIST
 from fields import Phone
@@ -122,11 +123,7 @@ class CLIInterface:
         if not name.strip():
             raise NameRequiredError
 
-        phone = input(
-            "📱 Enter the contact's phone number (e.g., 1234567890) [required]: "
-        )
-        if not phone.strip():
-            raise PhoneRequiredError
+        phone = self.phone_input_loop()
 
         self.console.print(
             "🌌 The following fields are optional. Press [Enter] to skip if not applicable.",
@@ -135,22 +132,57 @@ class CLIInterface:
         address = input(
             "🏠 Enter the contact's address (e.g., 123 Jedi Temple, Coruscant): "
         )
-        email = input("📧 Enter the contact's email (e.g., jedi@force.com): ")
-        birthday = input(
-            "🎉 Enter the contact's birthday (format: YYYY-MM-DD, e.g., 1977-05-25): "
-        )
+
+        email = self.email_input_loop()
+        birthday = self.birthday_input_loop()
+
         note = input("📝 Enter the contact's note (e.g., Jedi Master): ")
         tag = input("🏷 Enter the contact's tag (e.g., friends): ")
 
-        try:
-            record = Record(name, [phone], address, email, birthday, note, [tag])
-            self.book.add_record(record)
-        except InvalidEmailError as e:
-            self.console.print(f"[bold red]🚨 Error adding contact: {e}")
-        except InvalidPhoneError as e:
-            self.console.print(f"[bold red]🚨 Error adding contact: {e}")
-        else:
-            self.console.print(f"✅ {name} has been added to your Galactic Address Book.", style="bold cyan")
+        record = Record(name, [phone], address, email, birthday, note, [tag])
+        self.book.add_record(record)
+        self.console.print(f"✅ {name} has been added to your Galactic Address Book.", style="bold cyan")
+
+    def phone_input_loop(self):
+        valid = False
+        while not valid:
+            phone = input(
+                "📱 Enter the contact's phone number (e.g., 1234567890) [required]: "
+            )
+            valid = True
+            if not phone.strip():
+                self.console.print("Phone is required, try again", style="red")
+                valid = False
+            if not validation.is_valid_phone(phone):
+                self.console.print("Phone is not valid, try again", style="red")
+                valid = False
+
+        return phone
+
+    def email_input_loop(self):
+        valid = False
+        while not valid:
+            email = input("📧 Enter the contact's email (e.g., jedi@force.com): ")
+            valid = True
+            if not validation.is_valid_email(email):
+                self.console.print("Email is not valid, try again", style="red")
+                valid = False
+
+        return email
+
+    def birthday_input_loop(self):
+        valid = False
+        while not valid:
+            birthday = input(
+                "🎉 Enter the contact's birthday (format: YYYY-MM-DD, e.g., 1977-05-25): "
+            )
+            valid = True
+            if not validation.is_valid_birthday(birthday):
+                self.console.print("Birthday is not valid, try again", style="red")
+                valid = False
+
+        return birthday
+
 
     @input_error
     def delete_contact(self):
@@ -167,21 +199,26 @@ class CLIInterface:
             if field_to_edit not in SEARCH_FIELDS_LIST:
                 raise WrongFieldError
             else:
-                value = input("🌟 Enter the new value: ")
                 if field_to_edit == "phone":
                     old_phone = input("📱 Enter phone which should be changed: ")
+                    value = self.phone_input_loop()
                     self.change_phone(name, old_phone, value, self.book)
-                elif field_to_edit == "address":
-                    self.change_address(name, value, self.book)
                 elif field_to_edit == "email":
+                    value = self.email_input_loop()
                     self.change_email(name, value, self.book)
                 elif field_to_edit == "birthday":
+                    value = self.birthday_input_loop()
                     self.change_birthday(name, value, self.book)
-                elif field_to_edit == "note":
-                    self.change_note(name, value, self.book)
-                elif field_to_edit == "tag":
-                    old_tag = input("🏷 Enter tag which should be changed: ")
-                    self.change_tag(name, old_tag, value, self.book)
+                else:
+                    value = input("🌟 Enter the new value: ")
+
+                    if field_to_edit == "address":
+                        self.change_address(name, value, self.book)
+                    elif field_to_edit == "note":
+                        self.change_note(name, value, self.book)
+                    elif field_to_edit == "tag":
+                        old_tag = input("🏷 Enter tag which should be changed: ")
+                        self.change_tag(name, old_tag, value, self.book)
 
                 self.save_contacts()
         else:
