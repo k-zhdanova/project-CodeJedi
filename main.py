@@ -43,6 +43,9 @@ def main():
             elif command == "add_tag":
                 cli.add_tag()
 
+            elif command == "birthdays":
+                cli.print_upcoming_birthdays_contacts()
+
         except KeyboardInterrupt:
             # cli.bye()
             console.print(
