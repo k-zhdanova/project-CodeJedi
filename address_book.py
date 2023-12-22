@@ -19,7 +19,7 @@ class AddressBook(UserDict):
     def add_record(self, record: Record):
         if record.email.value != "":
             if validate_email(record.email.value) == False:
-                raise ValueError(f"🚨 Invalid email {record.email.value}. Record not added.")
+                raise ValueError(f"[red]🚨 Invalid email {record.email.value}. Record not added.")
         for phone in record.phones:
             if validate_phone(phone.value) == False:
                 raise ValueError(f"🚨 Invalid phone number {phone.value}. Record not added.")
@@ -34,13 +34,13 @@ class AddressBook(UserDict):
         if name in self.data:
             return self.data[name]
         else:
-            raise NotFoundError(f"Contact not found: {name}")
+            raise NotFoundError
 
     def delete_contact(self, name):
         if name in self.data:
             del self.data[name]
         else:
-            raise NotFoundError(f"Contact not found: {name}")
+            raise NotFoundError
 
     def search(self, field, value):
         result = None
@@ -62,7 +62,7 @@ class AddressBook(UserDict):
             raise WrongFieldError
 
         if not result:
-            self.console.print(f"🔍 No records found for {field} = {value}.")
+            self.console.print(f"[bright_red]🔍 No records found for {field} = {value}.")
             return ""
 
         self.console.print(

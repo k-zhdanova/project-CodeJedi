@@ -25,21 +25,21 @@ def input_error(func):
         try:
             return func(*args, **kwargs)
         except NotFoundError:
-            console.print("[bold red]🚨 Contact was not found")
+            console.print(f"[bold red]🚨 Contact not found was")
         except WrongFieldError:
-            console.print("[bold red]🚨 Invalid field. Please try again.")
+            console.print("[bold red]🚨 Invalid field. Please again try.")
         except ValueRequiredError:
-            console.print("[bold red]🚨 Value is required to search by. Please try again.")
+            console.print("[bold red]🚨 Value is required to search by. Please again try.")
         except NameRequiredError:
-            console.print("[bold red]🚨 Name is required to add a contact. Please try again.")
+            console.print("[bold red]🚨 Name is required to add a contact. Please again try.")
         except PhoneRequiredError:
-            console.print("[bold red]🚨 Phone number is required to add a contact. Please try again.")
+            console.print("[bold red]🚨 Phone number is required to add a contact. Please again try.")
         except InvalidTagError:
             console.print("[bold red]🚨 Invalid tag format")
         except InvalidPhoneError:
             console.print("[bold red]🚨 Invalid phone number format")
         except InvalidEmailError:
-            console.print("[bold red]🚨 Invalid email format")
+            console.print(f"[bold red]🚨 Invalid email format")
         except InvalidDateError:
             console.print("[bold red]🚨 Invalid birthday format. Should be Year-month-day ")
 
@@ -84,7 +84,7 @@ class CLIInterface:
         )
 
         for _, data in AVAILABLE_COMMANDS.items():
-            print(f" - 🌟 {data['preview']}: {data['description']}")
+            self.console.print(f"[yellow3] - 🌟 {data['preview']}: {data['description']}")
 
     def bye(self):
         self.console.print(
@@ -150,14 +150,14 @@ class CLIInterface:
         except InvalidPhoneError as e:
             self.console.print(f"[bold red]🚨 Error adding contact: {e}")
         else:
-            self.console.print(f"✅ {name} has been added to your Galactic Address Book.", style="bold cyan")
+            self.console.print(f"✅ {name} has been added to your Galactic Address Book.", style="spring_green2")
 
     @input_error
     def delete_contact(self):
         name = input("👤 Enter the contact's name (e.g., Luke Skywalker) [required]: ")
         self.book.delete_contact(name)
         self.save_contacts()
-        self.console.print(f"[yellow]✅Contact {name} deleted been has")
+        self.console.print(f"[spring_green2]✅Contact {name} deleted been has")
 
     @input_error
     def edit_contact(self):
@@ -194,37 +194,37 @@ class CLIInterface:
     def change_phone(self, name, old_phone, phone, book):
         record = book.find(name)
         record.edit_phone(old_phone, phone)
-        self.console.print(f"[yellow]✅ Phone edited been has")
+        self.console.print(f"[spring_green2]✅ Phone edited been has")
 
     @input_error
     def change_address(self, name, address, book):
         record = book.find(name)
         record.edit_address(address)
-        self.console.print(f"[yellow]✅ Address edited been has")
+        self.console.print(f"[spring_green2]✅ Address edited been has")
 
     @input_error
     def change_email(self, name, email, book):
         record = book.find(name)
         record.edit_email(email)
-        self.console.print(f"[yellow]✅ Email edited been has")
+        self.console.print(f"[spring_green2]✅ Email edited been has")
 
     @input_error
     def change_birthday(self, name, birthday, book):
         record = book.find(name)
         record.edit_birthday(birthday)
-        self.console.print(f"[yellow]✅ Birthday edited been has")
+        self.console.print(f"[spring_green2]✅ Birthday edited been has")
 
     @input_error
     def change_note(self, name, note, book):
         record = book.find(name)
         record.edit_note(note)
-        self.console.print(f"[yellow]✅ Note edited been has")
+        self.console.print(f"[spring_green2]✅ Note edited been has")
 
     @input_error
     def change_tag(self, name, old_tag, tag, book):
         record = book.find(name)
         record.edit_tag(old_tag, tag)
-        self.console.print(f"[yellow]✅ Tag edited been has")
+        self.console.print(f"[spring_green2]✅ Tag edited been has")
 
     @input_error
     def add_phone(self):
@@ -233,7 +233,7 @@ class CLIInterface:
 
         phone = input("Enter phone which should be added: ")
         record.add_phone(phone)
-        self.console.print(f"[yellow]✅ Phone added been has")
+        self.console.print(f"[spring_green2]✅ Phone added been has")
 
     @input_error
     def add_tag(self):
@@ -242,7 +242,7 @@ class CLIInterface:
 
         tag = input("Enter tag which should be added: ")
         record.add_tag(tag)
-        self.console.print(f"[yellow]✅ Tag added been has")
+        self.console.print(f"[spring_green2]✅ Tag added been has")
 
     def show_birthday(self):
         name = input("Enter name: ")
@@ -265,7 +265,7 @@ class CLIInterface:
         upcoming = BirthdayReminder.get_upcoming_birthdays_contacts(contacts, days)
 
         if not upcoming:
-            print(f"No upcoming birthdays in next {days} days")
+            self.console.print(f"[bright_red] No upcoming birthdays in next {days} days")
         else:
             self.book.print_records(upcoming)
 
