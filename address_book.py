@@ -17,15 +17,18 @@ class AddressBook(UserDict):
         self.console = Console()
 
     def add_record(self, record: Record):
-        if record.email and record.email.value:
-            validate_email(record.email.value)
-        
+        if record.email.value != "":
+            if validate_email(record.email.value) == False:
+                raise ValueError(f"🚨 Invalid email {record.email.value}. Record not added.")
         for phone in record.phones:
-            validate_phone(phone.value)
-            
+            if validate_phone(phone.value) == False:
+                raise ValueError(f"🚨 Invalid phone number {phone.value}. Record not added.")
         self.data[record.name.value] = record
-        self.storage.save_data(self.data, 'contacts')
+        self.save_contacts()
         return f"{record.name.value} added to Galactic Address Book"
+
+    def save_contacts(self):
+        self.storage.save_contacts(self.data)
 
     def find(self, name):
         if name in self.data:
