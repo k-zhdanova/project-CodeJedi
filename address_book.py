@@ -3,7 +3,7 @@ from record import Record
 from rich.table import Table
 from rich.console import Console
 from collections import UserDict
-from validation import validate_email, validate_phone
+import validation
 from error_handler import NotFoundError, WrongFieldError
 from storage import Storage
 
@@ -17,15 +17,18 @@ class AddressBook(UserDict):
         self.console = Console()
 
     def add_record(self, record: Record):
-        if record.email.value != "":
-            if validate_email(record.email.value) == False:
-                raise ValueError(f"🚨 Invalid email {record.email.value}. Record not added.")
-        for phone in record.phones:
-            if validate_phone(phone.value) == False:
-                raise ValueError(f"🚨 Invalid phone number {phone.value}. Record not added.")
+        self.validate_record(record)
         self.data[record.name.value] = record
         self.save_contacts()
         return f"{record.name.value} added to Galactic Address Book"
+
+    def validate_record(self, record):
+        if record.email.value != "":
+            validation.validate_email(record.email.value)
+        if record.birthday.value != "":
+            validation.validate_birthday(record.birthday.value)
+        for phone in record.phones:
+            validation.validate_phone(phone.value)
 
     def save_contacts(self):
         self.storage.save_contacts(self.data)

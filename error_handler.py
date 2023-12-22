@@ -40,3 +40,7 @@ class InvalidPhoneError(Exception):
 
 class InvalidTagError(Exception):
     pass
+
+
+class InvalidBirthdayError(Exception):
+    pass
