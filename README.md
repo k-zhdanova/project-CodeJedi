@@ -33,7 +33,8 @@ source .env/bin/activate
  - 🌟 add_tag: Add a new tag
  - 🌟 edit: Editing existing contacts
  - 🌟 delete: Delete an existing contact
- - 🌟 show-birthday: Show birthday contact's birthday
+ - 🌟 show-birthday: Shows upcoming birthdays for given period
+ - 🌟 birthdays: Show contacts with birthdays next period
  - 🌟 help: Show all available commands
  - 🌟 exit: Exit the assistant bot
  - 🌟 close: Exit the assistant bot
@@ -78,6 +79,9 @@ source .env/bin/activate
   - name [required]
 
   **show-birthday:** User will be prompted to input:
+  - name [required]
+
+  **birthdays:**
   - name [required]
 
 **help:** No aditional actions required

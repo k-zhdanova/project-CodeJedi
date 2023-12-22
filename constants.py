@@ -3,10 +3,6 @@ AVAILABLE_COMMANDS = {
         "preview": "hello",
         "description": "Greet the bot",
     },
-    "birthdays": {
-        "preview": "birthdays",
-        "description": "Show contacts with birthdays next period",
-    },
     "all": {
         "preview": "all",
         "description": "Get all contacts",
@@ -31,9 +27,13 @@ AVAILABLE_COMMANDS = {
         "preview": "delete",
         "description": "Delete an existing contact",
     },
-    "show-birthday-": {
+    "show-birthday": {
         "preview": "show-birthday",
-        "description": "Show birthday contact's birthday",
+        "description": "Shows upcoming birthdays for given period",
+    },
+    "birthdays": {
+        "preview": "birthdays",
+        "description": "Show contacts with birthdays next period",
     },
     "help": {
         "preview": "help",
