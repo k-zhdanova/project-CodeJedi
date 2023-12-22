@@ -157,3 +157,4 @@ class AddressBook(UserDict):
             if record_inf.birthday and current_date <= record_inf.birthday.value < one_week_later:
                 birthdays_this_week.append(name_value)
         return birthdays_this_week
+

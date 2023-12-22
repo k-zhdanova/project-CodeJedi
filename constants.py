@@ -3,6 +3,10 @@ AVAILABLE_COMMANDS = {
         "preview": "hello",
         "description": "Greet the bot",
     },
+    "birthdays": {
+        "preview": "birthdays",
+        "description": "Show contacts with birthdays next period",
+    },
     "all": {
         "preview": "all",
         "description": "Get all contacts",
