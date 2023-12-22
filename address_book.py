@@ -1,36 +1,42 @@
 import datetime
 from record import Record
-from collections import UserDict
 from rich.table import Table
 from rich.console import Console
 from collections import UserDict
 from validation import validate_email, validate_phone
-
+from error_handler import NotFoundError, WrongFieldError
+from storage import Storage
 
 class AddressBook(UserDict):
     def __init__(self):
-        self.data = {}
+        super().__init__()
+        self.storage = Storage()
+        loaded_data = self.storage.load_data('contacts')
+        if loaded_data is not None:
+            self.data = {record.name.value: record for record in loaded_data.values()}
         self.console = Console()
 
     def add_record(self, record: Record):
         if record.email and not validate_email(record.email.value):
-            return "🚨 Invalid email. Record not added."
-        if any(phone for phone in record.phones if not validate_phone(phone.value)):
-            return "🚨 Invalid phone number. Record not added."
+            raise ValueError(f"🚨 Invalid email {record.email.value}. Record not added.")
+        for phone in record.phones:
+            if not validate_phone(phone.value):
+                raise ValueError(f"🚨 Invalid phone number {phone.value}. Record not added.")
         self.data[record.name.value] = record
+        self.storage.save_data(self.data, 'contacts')
         return f"{record.name.value} added to address book"
 
     def find(self, name):
         if name in self.data:
             return self.data[name]
         else:
-            raise ValueError(f"🚨 {name} was not found")
+            raise NotFoundError
 
     def delete_contact(self, name):
         if name in self.data:
             del self.data[name]
         else:
-            return f"{name} was not found"
+            raise NotFoundError
 
     def search(self, field, value):
         result = None
@@ -49,7 +55,7 @@ class AddressBook(UserDict):
         elif field == "tag":
             result = self.search_by_tag(value)
         else:
-            raise ValueError("🚨 Invalid field. Please try again.")
+            raise WrongFieldError
 
         if not result:
             self.console.print(f"🔍 No records found for {field} = {value}.")

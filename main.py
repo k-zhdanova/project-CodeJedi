@@ -45,6 +45,9 @@ def main():
 
             elif command == "show-birthday":
                 cli.show_birthday()
+                
+            elif command == "birthdays":
+                cli.print_upcoming_birthdays_contacts()
 
         except KeyboardInterrupt:
             # cli.bye()

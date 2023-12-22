@@ -1,9 +1,47 @@
+from birthday_reminder import BirthdayReminder
 from constants import AVAILABLE_COMMANDS, TEST_RECORDS, SEARCH_FIELDS_LIST
 from fields import Phone
 from record import Record
 from address_book import AddressBook
 from rich.table import Table
 from rich.console import Console
+from error_handler import (
+    WrongFieldError,
+    NotFoundError,
+    ValueRequiredError,
+    NameRequiredError,
+    PhoneRequiredError,
+    InvalidTagError,
+    InvalidPhoneError,
+    InvalidEmailError,
+    InvalidDateError,
+)
+
+
+def input_error(func):
+    def inner(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except NotFoundError:
+            print("🚨 Contact was not found")
+        except WrongFieldError:
+            print("🚨 Invalid field. Please try again.")
+        except ValueRequiredError:
+            print("🚨 Value is required to search by. Please try again.")
+        except NameRequiredError:
+            print("🚨 Name is required to add a contact. Please try again.")
+        except PhoneRequiredError:
+            print("🚨 Phone number is required to add a contact. Please try again.")
+        except InvalidTagError:
+            print("🚨 Invalid tag number format")
+        except InvalidPhoneError:
+            print("🚨 Invalid phone number format")
+        except InvalidEmailError:
+            print("🚨 Invalid email number format")
+        except InvalidDateError:
+            print("🚨 Invalid birthday number format. Should be Year-month-day ")
+
+    return inner
 
 
 class CLIInterface:
@@ -58,35 +96,35 @@ class CLIInterface:
         )
         self.book.print_records()
 
+    @input_error
     def search(self):
         field = input(
             "🔍 Enter the field to search by (e.g., name, phone, email, birthday, address, note): "
         )
 
         if field not in SEARCH_FIELDS_LIST:
-            raise ValueError("🚨 Invalid field. Please try again.")
+            raise WrongFieldError
 
         value = input("🔍 Enter the value to search by:")
 
         if not value.strip():
-            raise ValueError("🚨 Value is required to search by. Please try again.")
+            raise ValueRequiredError
 
         self.book.search(field, value)
 
+    @input_error
     def add_contact(self):
         self.console.print("🌟 New Galactic Contact Entry 🌟", style="bold cyan")
 
         name = input("👤 Enter the contact's name (e.g., Luke Skywalker) [required]: ")
         if not name.strip():
-            raise ValueError("🚨 Name is required to add a contact. Please try again.")
+            raise NameRequiredError
 
         phone = input(
             "📱 Enter the contact's phone number (e.g., 1234567890) [required]: "
         )
         if not phone.strip():
-            raise ValueError(
-                "🚨 Phone number is required to add a contact. Please try again."
-            )
+            raise PhoneRequiredError
 
         self.console.print(
             "🌌 The following fields are optional. Press [Enter] to skip if not applicable.",
@@ -109,17 +147,19 @@ class CLIInterface:
             style="bold cyan",
         )
 
+    @input_error
     def delete_contact(self):
         name = input("👤 Enter the contact's name (e.g., Luke Skywalker) [required]: ")
         self.book.delete_contact(name)
         self.console.print(f"[yellow]✅Contact {name} deleted been has")
 
+    @input_error
     def edit_contact(self):
         name = input(f"🔍 which contact should be edited: ")
         if name in self.book:
             field_to_edit = input("🔍 Enter the field to edit: ")
             if field_to_edit not in SEARCH_FIELDS_LIST:
-                raise ValueError("🚨 Invalid field. Please try again.")
+                raise WrongFieldError
             else:
                 value = input("🔍 Enter the new value: ")
                 if field_to_edit == "phone":
@@ -136,41 +176,46 @@ class CLIInterface:
                 elif field_to_edit == "tag":
                     old_tag = input("Enter tag which should be changed: ")
                     self.change_tag(name, old_tag, value, self.book)
-                else:
-                    print("Field is not exist")
         else:
-            print("Not found")
+            raise NotFoundError
 
+    @input_error
     def change_phone(self, name, old_phone, phone, book):
         record = book.find(name)
         record.edit_phone(old_phone, phone)
         self.console.print(f"[yellow]✅Phone edited been has")
 
+    @input_error
     def change_address(self, name, address, book):
         record = book.find(name)
         record.edit_address(address)
         self.console.print(f"[yellow]✅Address edited been has")
 
+    @input_error
     def change_email(self, name, email, book):
         record = book.find(name)
         record.edit_email(email)
         self.console.print(f"[yellow]✅Email edited been has")
 
+    @input_error
     def change_birthday(self, name, birthday, book):
         record = book.find(name)
         record.edit_birthday(birthday)
         self.console.print(f"[yellow]✅Birthday edited been has")
 
+    @input_error
     def change_note(self, name, note, book):
         record = book.find(name)
         record.edit_note(note)
         self.console.print(f"[yellow]✅Note edited been has")
 
+    @input_error
     def change_tag(self, name, old_tag, tag, book):
         record = book.find(name)
         record.edit_tag(old_tag, tag)
         self.console.print(f"[yellow]✅Tag edited been has")
 
+    @input_error
     def add_phone(self):
         name = input("👤 Enter the contact's name: ")
         record = self.book.find(name)
@@ -179,6 +224,7 @@ class CLIInterface:
         record.add_phone(phone)
         self.console.print(f"[yellow]✅Phone added been has")
 
+    @input_error
     def add_tag(self):
         name = input("👤 Enter the contact's name: ")
         record = self.book.find(name)
@@ -193,3 +239,22 @@ class CLIInterface:
         if record.birthday == None:
             print("no saved birthday")  # raise NoBirthdayError()
         self.console.print(f"[spring_green2]🎉 {name}'s birthday {record.birthday} is")
+        
+    def print_upcoming_birthdays_contacts(self):
+        days = input("👤 Enter period in days. If empty, default 7 will be used: ")
+        if days == "":
+            days = "7"
+
+        try:
+            days = int(days)
+        except ValueError:
+            raise ValueError("'days' must be a number")
+
+        contacts = list(self.book.data.values())
+        upcoming = BirthdayReminder.get_upcoming_birthdays_contacts(contacts, days)
+
+        if not upcoming:
+            print(f"No upcoming birthdays in next {days} days")
+        else:
+            self.book.print_records(upcoming)
+
