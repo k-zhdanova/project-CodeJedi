@@ -53,7 +53,7 @@ AVAILABLE_COMMANDS = {
 TEST_RECORDS = {
     "John": {
         "phones": ["111222333", "444555666"],
-        "birthday": "1970-01-01",
+        "birthday": "1971-01-01",
         "address": "USA",
         "email": "john@gmail.com",
         "note": "Kitchen service",
@@ -61,7 +61,7 @@ TEST_RECORDS = {
     },
     "Bob": {
         "phones": ["000444555"],
-        "birthday": "1980-02-02",
+        "birthday": "1980-01-01",
         "address": "Ukraine",
         "email": "bob@gmail.com",
         "note": "New year party",
@@ -69,7 +69,7 @@ TEST_RECORDS = {
     },
     "Alice": {
         "phones": ["777888999", "000444555", "111222333"],
-        "birthday": "1990-09-09",
+        "birthday": "1990-01-01",
         "address": "Poland",
         "email": "alice@gmail.com",
         "note": "Birthday party",
