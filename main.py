@@ -49,6 +49,9 @@ def main():
             elif command == "birthdays":
                 cli.print_upcoming_birthdays_contacts()
 
+            else:
+                cli.suggest_command(user_input)
+
         except KeyboardInterrupt:
             # cli.bye()
             console.print(
