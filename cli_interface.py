@@ -192,4 +192,4 @@ class CLIInterface:
         record = self.book.find(name)
         if record.birthday == None:
             print("no saved birthday")  # raise NoBirthdayError()
-        print(record.birthday)
+        self.console.print(f"[spring_green2]🎉 {name}'s birthday {record.birthday} is")

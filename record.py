@@ -112,3 +112,5 @@ class Record:
 
     def __getnote__(self):
         return self.note
+
+    
