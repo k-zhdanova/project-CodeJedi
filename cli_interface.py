@@ -38,7 +38,7 @@ def input_error(func):
         except InvalidTagError:
             console.print("[bold red]🚨 Invalid tag format")
         except InvalidPhoneError:
-            console.print("[bold red]🚨 Invalid phone number format")
+            console.print("[bold red]🚨 Invalid phone number format.")
         except InvalidEmailError:
             console.print(f"[bold red]🚨 Invalid email format")
         except InvalidDateError:
@@ -141,7 +141,7 @@ class CLIInterface:
 
         record = Record(name, [phone], address, email, birthday, note, [tag])
         self.book.add_record(record)
-        self.console.print(f"✅ {name} has been added to your Galactic Address Book.", style="bold cyan")
+        self.console.print(f"✅ {name} has been added to your Galactic Address Book.", style="bold spring_green2")
 
     def phone_input_loop(self):
         valid = False
@@ -151,10 +151,10 @@ class CLIInterface:
             )
             valid = True
             if not phone.strip():
-                self.console.print("Phone is required, try again", style="red")
+                self.console.print("🚨 Phone is required, try again", style="red")
                 valid = False
             if not validation.is_valid_phone(phone):
-                self.console.print("Phone is not valid, try again", style="red")
+                self.console.print("🚨 Phone is not valid, try again", style="red")
                 valid = False
 
         return phone
