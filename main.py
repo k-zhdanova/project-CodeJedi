@@ -47,7 +47,7 @@ def main():
 
             elif command == "show-birthday":
                 cli.show_birthday()
-                
+
             elif command == "birthdays":
                 cli.print_upcoming_birthdays_contacts()
 
@@ -65,14 +65,14 @@ def main():
             console.print(f"[red] select command")
             continue
         except ValueError as error:
-            #print(error)
+            # print(error)
             console.print(f"[bold red]🔥 Disturbance in the Force: {error}")
             continue
         except Exception as error:
             console.print(f"[bold red]⚡ A great disturbance in the Force: {error}")
             print("🧐 Unexpected this error is. Meditate on your actions, you must.")
             continue
-        
+
 
 if __name__ == "__main__":
     main()

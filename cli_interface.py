@@ -30,11 +30,17 @@ def input_error(func):
         except WrongFieldError:
             console.print("[bold red]🚨 Invalid field. Please again try.")
         except ValueRequiredError:
-            console.print("[bold red]🚨 Value is required to search by. Please again try.")
+            console.print(
+                "[bold red]🚨 Value is required to search by. Please again try."
+            )
         except NameRequiredError:
-            console.print("[bold red]🚨 Name is required to add a contact. Please again try.")
+            console.print(
+                "[bold red]🚨 Name is required to add a contact. Please again try."
+            )
         except PhoneRequiredError:
-            console.print("[bold red]🚨 Phone number is required to add a contact. Please again try.")
+            console.print(
+                "[bold red]🚨 Phone number is required to add a contact. Please again try."
+            )
         except InvalidTagError:
             console.print("[bold red]🚨 Invalid tag format")
         except InvalidPhoneError:
@@ -42,7 +48,9 @@ def input_error(func):
         except InvalidEmailError:
             console.print(f"[bold red]🚨 Invalid email format")
         except InvalidDateError:
-            console.print("[bold red]🚨 Invalid birthday format. Should be Year-month-day ")
+            console.print(
+                "[bold red]🚨 Invalid birthday format. Should be Year-month-day "
+            )
 
     return inner
 
@@ -85,7 +93,9 @@ class CLIInterface:
         )
 
         for _, data in AVAILABLE_COMMANDS.items():
-            self.console.print(f"[yellow3] - 🌟 {data['preview']}: {data['description']}")
+            self.console.print(
+                f"[yellow3] - 🌟 {data['preview']}: {data['description']}"
+            )
 
     def bye(self):
         self.console.print(
@@ -138,10 +148,14 @@ class CLIInterface:
 
         note = input("📝 Enter the contact's note (e.g., Jedi Master): ")
         tag = input("🏷 Enter the contact's tag (e.g., friends): ")
-
-        record = Record(name, [phone], address, email, birthday, note, [tag])
+        tags = [tag]
+        if tag == "":
+            tags = []
+        record = Record(name, [phone], address, email, birthday, note, tags)
         self.book.add_record(record)
-        self.console.print(f"✅ {name} has been added to your Galactic Address Book.", style="bold cyan")
+        self.console.print(
+            f"✅ {name} has been added to your Galactic Address Book.", style="bold cyan"
+        )
 
     def phone_input_loop(self):
         valid = False
@@ -286,7 +300,7 @@ class CLIInterface:
         if not record.birthday:
             raise NotFoundError
         self.console.print(f"[spring_green2]🎉 {name}'s birthday {record.birthday} is")
-        
+
     def print_upcoming_birthdays_contacts(self):
         days = input("👤 Enter period in days. If empty, default 7 will be used: ")
         if days == "":
@@ -301,20 +315,22 @@ class CLIInterface:
         upcoming = BirthdayReminder.get_upcoming_birthdays_contacts(contacts, days)
 
         if not upcoming:
-            self.console.print(f"[bright_red] No upcoming birthdays in next {days} days")
+            self.console.print(
+                f"[bright_red] No upcoming birthdays in next {days} days"
+            )
         else:
             self.book.print_records(upcoming)
 
     def suggest_command(self, user_input):
         user_input = user_input.lower().strip()
         keywords = {
-            'add': ['add', 'new', 'create', 'insert'],
-            'search': ['search', 'find', 'lookup', 'query'],
-            'delete': ['delete', 'remove', 'discard', 'erase'],
-            'edit': ['edit', 'modify', 'change', 'update'],
-            'birthday': ['birthday', 'birth date', 'bday'],
-            'help': ['help', 'assist', 'support', 'guide'],
-            'exit': ['exit', 'close', 'leave', 'quit']
+            "add": ["add", "new", "create", "insert"],
+            "search": ["search", "find", "lookup", "query"],
+            "delete": ["delete", "remove", "discard", "erase"],
+            "edit": ["edit", "modify", "change", "update"],
+            "birthday": ["birthday", "birth date", "bday"],
+            "help": ["help", "assist", "support", "guide"],
+            "exit": ["exit", "close", "leave", "quit"],
         }
 
         suggested_command = None
@@ -327,7 +343,10 @@ class CLIInterface:
                 suggested_command = command
 
         if suggested_command:
-            self.console.print(f"Suggested Command: {suggested_command}", style="bold cyan")
-        else: 
-            self.console.print(f"[bold red]🚨 Unfortunatelly, we can't suggest any command for you")
-
+            self.console.print(
+                f"Suggested Command: {suggested_command}", style="bold cyan"
+            )
+        else:
+            self.console.print(
+                f"[bold red]🚨 Unfortunatelly, we can't suggest any command for you"
+            )

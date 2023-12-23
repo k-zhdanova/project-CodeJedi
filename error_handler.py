@@ -45,5 +45,6 @@ class InvalidTagError(Exception):
 class InvalidBirthdayError(Exception):
     pass
 
+
 class EmptyInputError(Exception):
     pass

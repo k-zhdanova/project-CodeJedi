@@ -47,7 +47,8 @@ class Record:
 
     def add_tag(self, tag):
         try:
-            self.tags.append(Tag(tag))
+            if tag != "":
+                self.tags.append(Tag(tag))
         except ValueError as e:
             raise InvalidTagError(f"Invalid tag: {e}")
 
@@ -125,5 +126,3 @@ class Record:
 
     def __getnote__(self):
         return self.note
-
-    

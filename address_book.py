@@ -7,11 +7,12 @@ import validation
 from error_handler import NotFoundError, WrongFieldError
 from storage import Storage
 
+
 class AddressBook(UserDict):
     def __init__(self):
         super().__init__()
         self.storage = Storage()
-        loaded_data = self.storage.load_data('contacts')
+        loaded_data = self.storage.load_data("contacts")
         if loaded_data is not None:
             self.data = {record.name.value: record for record in loaded_data.values()}
         self.console = Console()
@@ -20,7 +21,6 @@ class AddressBook(UserDict):
         self.data[record.name.value] = record
         self.save_contacts()
         return f"{record.name.value} added to Galactic Address Book"
-
 
     def save_contacts(self):
         self.storage.save_contacts(self.data)
