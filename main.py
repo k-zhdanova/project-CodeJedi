@@ -2,6 +2,7 @@ from helpers import parse_input
 from cli_interface import CLIInterface
 from address_book import AddressBook
 from rich.console import Console
+from error_handler import EmptyInputError
 
 
 def main():
@@ -14,6 +15,7 @@ def main():
         try:
             user_input = input("🌌 Enter a command: ")
             command, *args = parse_input(user_input)
+            print(command)
 
             if command == "help":
                 cli.help()
@@ -45,7 +47,7 @@ def main():
 
             elif command == "show-birthday":
                 cli.show_birthday()
-                
+
             elif command == "birthdays":
                 cli.print_upcoming_birthdays_contacts()
 
@@ -59,6 +61,9 @@ def main():
                 style="bold cyan",
             )
             return
+        except EmptyInputError as error:
+            console.print(f"[red] select command")
+            continue
         except ValueError as error:
             # print(error)
             console.print(f"[bold red]🔥 Disturbance in the Force: {error}")
