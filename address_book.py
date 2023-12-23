@@ -61,8 +61,7 @@ class AddressBook(UserDict):
             return ""
 
         self.console.print(
-            f"🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}",
-            style="bold cyan",
+            f"[bold cyan]🔍 {len(result)} {'records' if len(result) > 1 else 'record'} found for {field} = {value}"
         )
 
         self.print_records(result)

@@ -1,56 +1,16 @@
 AVAILABLE_COMMANDS = {
-    "hello": {
-        "preview": "hello",
-        "description": "Greet the bot",
-    },
-    "all": {
-        "preview": "all",
-        "description": "Get all contacts",
-    },
-    "add": {
-        "preview": "add",
-        "description": "Add a new contact",
-    },
-    "add_phone": {
-        "preview": "add_phone",
-        "description": "Add a new phone",
-    },
-    "add_tag": {
-        "preview": "add_tag",
-        "description": "Add a new tag",
-    },
-    "edit": {
-        "preview": "edit",
-        "description": "Editing existing contacts",
-    },
-    "delete": {
-        "preview": "delete",
-        "description": "Delete an existing contact",
-    },
-    "show-birthday": {
-        "preview": "show-birthday",
-        "description": "Shows upcoming birthdays for given period",
-    },
-    "birthdays": {
-        "preview": "birthdays",
-        "description": "Show contacts with birthdays next period",
-    },
-    "help": {
-        "preview": "help",
-        "description": "Show all available commands",
-    },
-    "exit": {
-        "preview": "exit",
-        "description": "Exit the assistant bot",
-    },
-    "close": {
-        "preview": "close",
-        "description": "Exit the assistant bot",
-    },
-    "bye": {
-        "preview": "bye",
-        "description": "Exit the assistant bot",
-    },
+    "all": "Get all contacts",
+    "add": "Add a new contact",
+    "add_phone": "Add a new phone",
+    "add_tag": "Add a new tag",
+    "edit": "Editing existing contacts",
+    "delete": "Delete an existing contact",
+    "show-birthday": "Shows upcoming birthdays for given period",
+    "birthdays": "Show contacts with birthdays next period",
+    "help": "Show all available commands",
+    "exit": "Exit the assistant bot",
+    "close": "Exit the assistant bot",
+    "bye": "Exit the assistant bot",
 }
 
 # Temporary test records
@@ -81,7 +41,7 @@ TEST_RECORDS = {
     },
 }
 
-SEARCH_FIELDS_LIST = [
+FIELDS_LIST = [
     "name",
     "phone",
     "email",

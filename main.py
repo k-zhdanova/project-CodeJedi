@@ -15,7 +15,6 @@ def main():
         try:
             user_input = input("🌌 Enter a command: ")
             command, *args = parse_input(user_input)
-            print(command)
 
             if command == "help":
                 cli.help()
@@ -55,17 +54,14 @@ def main():
                 cli.suggest_command(user_input)
 
         except KeyboardInterrupt:
-            # cli.bye()
             console.print(
-                "\n🚀 A sudden retreat? Very well, the Force will be waiting for your return.",
-                style="bold cyan",
+                "[bold cyan]\n🚀 A sudden retreat? Very well, the Force will be waiting for your return."
             )
             return
         except EmptyInputError as error:
             console.print(f"[red] select command")
             continue
         except ValueError as error:
-            # print(error)
             console.print(f"[bold red]🔥 Disturbance in the Force: {error}")
             continue
         except Exception as error:
