@@ -5,7 +5,7 @@ class BirthdayReminder:
     @staticmethod
     def get_upcoming_birthdays_contacts(contacts, days=7):
         upcoming = []
-        current_date = datetime.now()
+        current_date = datetime.now().date()
 
         for contact in contacts:
             if contact.birthday.value == "":
@@ -13,7 +13,7 @@ class BirthdayReminder:
 
             birthday_this_year = datetime.strptime(
                 contact.birthday.value, "%Y-%m-%d"
-            ).replace(year=current_date.year)
+            ).date().replace(year=current_date.year)
 
             delta = (birthday_this_year - current_date).days
 
@@ -23,7 +23,8 @@ class BirthdayReminder:
                 )
                 delta = (birthday_next_year - current_date).days
 
-            if 0 <= delta <= days:
-                upcoming.append(contact)
+            if delta >= 0:
+                if delta <= days:
+                    upcoming.append(contact)
 
         return upcoming
