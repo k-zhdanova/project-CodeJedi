@@ -29,6 +29,7 @@ source .env/bin/activate
  - 🌟 hello: Greet the bot
  - 🌟 all: Get all contacts
  - 🌟 add: Add a new contact
+ - 🌟 search: Search contact by any field
  - 🌟 add_phone: Add a new phone
  - 🌟 add_tag: Add a new tag
  - 🌟 edit: Editing existing contacts
@@ -60,6 +61,10 @@ source .env/bin/activate
   - email [optional field]
   
   - birthday [optional field]
+
+  **search:** User will be prompted to input:
+
+  - field to search by
   
   **add_phone:** Phone number ir required
   

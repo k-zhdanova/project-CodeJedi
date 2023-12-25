@@ -1,6 +1,7 @@
 AVAILABLE_COMMANDS = {
     "all": "Get all contacts",
     "add": "Add a new contact",
+    "search": "Search contact by any field",
     "add_phone": "Add a new phone",
     "add_tag": "Add a new tag",
     "edit": "Editing existing contacts",
