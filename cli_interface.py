@@ -347,27 +347,30 @@ class CLIInterface:
     def suggest_command(self, user_input):
         user_input = user_input.lower().strip()
         keywords = {
-            "add": ["add", "new", "create", "insert"],
-            "search": ["search", "find", "lookup", "query"],
-            "delete": ["delete", "remove", "discard", "erase"],
-            "edit": ["edit", "modify", "change", "update"],
-            "birthday": ["birthday", "birth date", "bday"],
-            "help": ["help", "assist", "support", "guide"],
-            "exit": ["exit", "close", "leave", "quit"],
+            "al": ["all"],
+            "ad": ["add", "add_tag", "add_phone"],
+            "ph": ["add_phone"],
+            "ta": ["add_tag"],
+            "ed": ["edit"],
+            "de": ["delete"],
+            "ad": ["add", "add_tag", "add_phone"],
+            "sh": ["show_birthday"],
+            "bi": ["birthdays", "show-birthday"],
+            "he": ["help"],
+            "ex": ["exit"],
+            "cl": ["close"],
+            "by": ["bye"],
+            "se": ["search"]
         }
+        not_found = True
+        for key, value in keywords.items():
+            if user_input.find(key) > -1:
+                not_found = False
+                self.console.print(f"Suggested Command: {value}", style="bold cyan")
+                break
+        if not_found:
+            self.console.print("[bold red]🚨 Unfortunately, we can't suggest any command for you") 
 
-        best_match = None
-        highest_match_score = 0
 
-        for command, command_keywords in keywords.items():
-            for keyword in command_keywords:
-                if user_input == keyword[:len(user_input)]:
-                    match_score = len(user_input)
-                    if match_score > highest_match_score:
-                        highest_match_score = match_score
-                        best_match = command
+                
 
-        if best_match:
-            self.console.print(f"Suggested Command: {best_match}", style="bold cyan")
-        else:
-            self.console.print("[bold red]🚨 Unfortunately, we can't suggest any command for you")
