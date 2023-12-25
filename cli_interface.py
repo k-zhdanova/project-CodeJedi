@@ -214,6 +214,7 @@ class CLIInterface:
                         self.console.print("[bold red]🚨 Phone number is required. Please try again.")
                     else:
                         self.console.print("[bold red]🚨 Phone number not found. Please try again.")
+                        return
 
                 new_phone = self.phone_input_loop()
                 self.change_phone(name, old_phone, new_phone, self.book)
@@ -243,6 +244,7 @@ class CLIInterface:
                         self.console.print("[bold red]🚨 Tag is required. Please try again.")
                     else:
                         self.console.print("[bold red]🚨 Tag not found. Please try again.")
+                        return
 
                 new_tag = input("🏷 Enter the new tag: ")
                 self.change_tag(name, old_tag, new_tag, self.book)
