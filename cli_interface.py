@@ -318,9 +318,11 @@ class CLIInterface:
     def show_birthday(self):
         name = input("Enter name: ")
         record = self.book.find(name)
-        if not record.birthday:
-            raise NotFoundError
-        self.console.print(f"[spring_green2]🎉 {name}'s birthday {record.birthday} is")
+        
+        if not record.birthday or not record.birthday.value.strip():
+            self.console.print(f"[bold red]🚨 {name} does not have a birthday set.")
+        else:
+            self.console.print(f"[spring_green2]🎉 {name}'s birthday {record.birthday} is")
 
     def print_upcoming_birthdays_contacts(self):
         days = input("👤 Enter period in days. If empty, default 7 will be used: ")
