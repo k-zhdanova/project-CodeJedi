@@ -352,20 +352,18 @@ class CLIInterface:
             "exit": ["exit", "close", "leave", "quit"],
         }
 
-        suggested_command = None
-        highest_match_count = 0
+        best_match = None
+        highest_match_score = 0
 
         for command, command_keywords in keywords.items():
-            match_count = sum(keyword in user_input for keyword in command_keywords)
-            if match_count > highest_match_count:
-                highest_match_count = match_count
-                suggested_command = command
+            for keyword in command_keywords:
+                if user_input == keyword[:len(user_input)]:
+                    match_score = len(user_input)
+                    if match_score > highest_match_score:
+                        highest_match_score = match_score
+                        best_match = command
 
-        if suggested_command:
-            self.console.print(
-                f"[bold cyan]Suggested Command: {suggested_command}"
-            )
+        if best_match:
+            self.console.print(f"Suggested Command: {best_match}", style="bold cyan")
         else:
-            self.console.print(
-                f"[bold red]🚨 Unfortunatelly, we can't suggest any command for you"
-            )
+            self.console.print("[bold red]🚨 Unfortunately, we can't suggest any command for you")
