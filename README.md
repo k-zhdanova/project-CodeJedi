@@ -24,7 +24,7 @@ After installation you can launch the app from any place using the command:
 python3 -m codejedi.main
 ```
 
-2. **Development**
+3. **Development**
 
 Initiate local virtual environment:
 ```bash
@@ -42,7 +42,7 @@ To activate, run:
 ```
 source .env/bin/activate
 ```
-3. **Menu**
+4. **Menu**
 
 ```
  - 🌟 hello: Greet the bot
@@ -59,7 +59,7 @@ source .env/bin/activate
  - 🌟 close: Exit the assistant bot
  - 🌟 bye: Exit the assistant bot
 ```
-4. **Usage:**
+5. **Usage:**
 
     Type a command from Menu:
   
