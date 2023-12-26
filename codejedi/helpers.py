@@ -1,4 +1,4 @@
-from error_handler import EmptyInputError
+from .error_handler import EmptyInputError
 
 
 def parse_input(user_input):

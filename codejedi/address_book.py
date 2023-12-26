@@ -1,11 +1,10 @@
 import datetime
-from record import Record
+from .record import Record
 from rich.table import Table
 from rich.console import Console
 from collections import UserDict
-import validation
-from error_handler import NotFoundError, WrongFieldError
-from storage import Storage
+from .error_handler import NotFoundError, WrongFieldError
+from .storage import Storage
 
 
 class AddressBook(UserDict):

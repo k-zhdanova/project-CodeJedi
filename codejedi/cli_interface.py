@@ -1,12 +1,12 @@
-import validation
-from birthday_reminder import BirthdayReminder
-from constants import AVAILABLE_COMMANDS, TEST_RECORDS, FIELDS_LIST
-from fields import Phone
-from record import Record
-from address_book import AddressBook
+from .validation import is_valid_email, is_valid_birthday, is_valid_phone
+from .birthday_reminder import BirthdayReminder
+from .constants import AVAILABLE_COMMANDS, TEST_RECORDS, FIELDS_LIST
+from .fields import Phone
+from .record import Record
+from .address_book import AddressBook
 from rich.table import Table
 from rich.console import Console
-from error_handler import (
+from .error_handler import (
     WrongFieldError,
     NotFoundError,
     ValueRequiredError,
@@ -158,7 +158,7 @@ class CLIInterface:
             phone = input("📱 Enter the contact's phone number (e.g., 1234567890) [required]: ")
             if not phone.strip():
                 self.console.print("[bold red]🚨 Phone is required, try again")
-            elif not validation.is_valid_phone(phone):
+            elif not is_valid_phone(phone):
                 self.console.print("[bold red]🚨 Phone is not valid, try again")
             else:
                 return phone
@@ -168,7 +168,7 @@ class CLIInterface:
         while not valid:
             email = input("📧 Enter the contact's email (e.g., jedi@force.com): ")
             valid = True
-            if not validation.is_valid_email(email):
+            if not is_valid_email(email):
                 self.console.print("[bold red]🚨 Email is not valid, try again")
                 valid = False
 
@@ -181,7 +181,7 @@ class CLIInterface:
                 "🎉 Enter the contact's birthday (format: YYYY-MM-DD, e.g., 1977-05-25): "
             )
             valid = True
-            if not validation.is_valid_birthday(birthday):
+            if not is_valid_birthday(birthday):
                 self.console.print("[bold red]🚨 Birthday is not valid, try again")
                 valid = False
 

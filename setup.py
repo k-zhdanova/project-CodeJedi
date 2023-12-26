@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="project_codejedi",
+    name="codejedi",
     description="Galactic Address Book",
     version="0.1.0",
     url="https://github.com/k-zhdanova/project-CodeJedi",
@@ -14,7 +14,7 @@ setup(
     ],
     entry_points={
         "console_scripts": [
-            "main = project_codejedi:main"
+            "main = codejedi:main"
         ]
     }
 )
