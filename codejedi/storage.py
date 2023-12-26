@@ -1,7 +1,7 @@
 import json
 import os
 from rich.console import Console
-from record import Record
+from .record import Record
 
 
 class Storage:

@@ -1,5 +1,5 @@
-from fields import Name, Phone, Address, Email, Birthday, Note, Tag
-from error_handler import InvalidTagError, InvalidPhoneError
+from .fields import Name, Phone, Address, Email, Birthday, Note, Tag
+from .error_handler import InvalidTagError, InvalidPhoneError
 
 
 class Record:

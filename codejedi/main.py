@@ -1,8 +1,8 @@
-from helpers import parse_input
-from cli_interface import CLIInterface
-from address_book import AddressBook
+from .helpers import parse_input
+from .cli_interface import CLIInterface
+from .address_book import AddressBook
 from rich.console import Console
-from error_handler import EmptyInputError
+from .error_handler import EmptyInputError
 
 
 def main():
