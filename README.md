@@ -18,6 +18,7 @@ Replace `/path/to/your/project` with the actual path to your project directory, 
 This command installs the package including any dependencies listed in setup.py.
 
 2. **Running**
+
 After installation you can launch the app from any place using the command:
 
 ```bash
