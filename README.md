@@ -17,7 +17,14 @@ Replace `/path/to/your/project` with the actual path to your project directory, 
 
 This command installs the package including any dependencies listed in setup.py.
 
-2. **Development**
+2. **Running**
+After installation you can launch the app from any place using the command:
+
+```bash
+python3 -m codejedi.main
+```
+
+3. **Development**
 
 Initiate local virtual environment:
 ```bash
@@ -35,7 +42,7 @@ To activate, run:
 ```
 source .env/bin/activate
 ```
-3. **Menu**
+4. **Menu**
 
 ```
  - 🌟 hello: Greet the bot
@@ -52,7 +59,7 @@ source .env/bin/activate
  - 🌟 close: Exit the assistant bot
  - 🌟 bye: Exit the assistant bot
 ```
-4. **Usage:**
+5. **Usage:**
 
     Type a command from Menu:
   
